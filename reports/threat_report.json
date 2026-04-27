@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-27T14:50:07",
+  "generated_at": "2026-04-27T15:13:50",
   "model_metrics": {},
   "summary": {
     "total_alerts": 2000,
@@ -21,9 +21,9 @@
     "Impact": {
       "count": 669,
       "techniques": [
-        "T1498",
+        "T1499",
         "T1499.001",
-        "T1499"
+        "T1498"
       ]
     },
     "Command and Control": {
@@ -35,8 +35,8 @@
     "Credential Access": {
       "count": 205,
       "techniques": [
-        "T1110.003",
-        "T1110"
+        "T1110",
+        "T1110.003"
       ]
     },
     "Execution": {
@@ -60,7 +60,7 @@
   },
   "alerts": [
     {
-      "id": "da2d12f5",
+      "id": "fabfbccd",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -78,7 +78,7 @@
       "log_text": "proto other short duration high packet rate syn scan reconnaissance"
     },
     {
-      "id": "0a469d7f",
+      "id": "b7ccb816",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -96,7 +96,7 @@
       "log_text": "proto other short duration high packet rate syn scan reconnaissance"
     },
     {
-      "id": "f8b1f412",
+      "id": "d3702d7e",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -114,7 +114,7 @@
       "log_text": "proto other short duration high packet rate syn scan reconnaissance"
     },
     {
-      "id": "e80a72c4",
+      "id": "ba32d505",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -132,7 +132,7 @@
       "log_text": "proto udp short duration high packet rate syn scan reconnaissance"
     },
     {
-      "id": "1bb6b970",
+      "id": "c0759df4",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "DoS Hulk",
@@ -150,7 +150,7 @@
       "log_text": "proto other high volume fwd packets flood high bytes per second high packet rate syn flood flag"
     },
     {
-      "id": "4c73012e",
+      "id": "3d7fba24",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -168,7 +168,7 @@
       "log_text": "proto udp short duration high packet rate syn scan reconnaissance"
     },
     {
-      "id": "67246781",
+      "id": "94a8c4f4",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "DoS Slowhttptest",
@@ -186,7 +186,7 @@
       "log_text": "proto tcp high volume fwd packets flood high bytes per second high packet rate syn flood flag"
     },
     {
-      "id": "f298e994",
+      "id": "73b0fa6d",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "DDoS",
@@ -204,7 +204,7 @@
       "log_text": "proto udp high volume fwd packets flood high bytes per second high packet rate syn flood flag"
     },
     {
-      "id": "434c0d94",
+      "id": "17364113",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -222,7 +222,7 @@
       "log_text": "proto tcp short duration high packet rate syn scan reconnaissance"
     },
     {
-      "id": "bb74097a",
+      "id": "9e02fd10",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -240,7 +240,7 @@
       "log_text": "proto other short duration high packet rate syn scan reconnaissance"
     },
     {
-      "id": "b443e1c4",
+      "id": "455b2782",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -258,7 +258,7 @@
       "log_text": "proto udp short duration high packet rate syn scan reconnaissance"
     },
     {
-      "id": "8ef1b369",
+      "id": "bfd5cc88",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "DDoS",
@@ -276,7 +276,7 @@
       "log_text": "proto udp high volume fwd packets flood high bytes per second high packet rate syn flood flag"
     },
     {
-      "id": "8f9572e2",
+      "id": "8c5763f6",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -294,7 +294,7 @@
       "log_text": "proto tcp short duration high packet rate syn scan reconnaissance"
     },
     {
-      "id": "b4d25503",
+      "id": "0830b0fb",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "DoS Hulk",
@@ -312,7 +312,7 @@
       "log_text": "proto tcp high volume fwd packets flood high bytes per second high packet rate syn flood flag syn scan reconnaissance"
     },
     {
-      "id": "a83cf78e",
+      "id": "10f9e1b8",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -330,7 +330,7 @@
       "log_text": "proto udp short duration high packet rate syn scan reconnaissance"
     },
     {
-      "id": "71fdc06e",
+      "id": "31c79759",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -348,7 +348,7 @@
       "log_text": "proto other short duration high packet rate syn scan reconnaissance"
     },
     {
-      "id": "c89b82bf",
+      "id": "ff8b5c9b",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -366,7 +366,7 @@
       "log_text": "proto other short duration high packet rate syn scan reconnaissance"
     },
     {
-      "id": "1d05cdca",
+      "id": "78c81390",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -384,7 +384,7 @@
       "log_text": "proto udp short duration high packet rate syn scan reconnaissance"
     },
     {
-      "id": "cf3a4b8f",
+      "id": "143bb346",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -402,7 +402,7 @@
       "log_text": "proto tcp short duration high packet rate syn scan reconnaissance"
     },
     {
-      "id": "848158ae",
+      "id": "2d889a6b",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -420,7 +420,7 @@
       "log_text": "proto udp short duration high packet rate syn scan reconnaissance"
     },
     {
-      "id": "1646f709",
+      "id": "ea23ee04",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -438,7 +438,7 @@
       "log_text": "proto udp short duration high packet rate syn scan reconnaissance"
     },
     {
-      "id": "31e74437",
+      "id": "60a63345",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -456,7 +456,7 @@
       "log_text": "proto tcp short duration high packet rate syn scan reconnaissance"
     },
     {
-      "id": "0c66a3c5",
+      "id": "a95981ca",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -474,7 +474,7 @@
       "log_text": "proto tcp short duration high packet rate syn scan reconnaissance"
     },
     {
-      "id": "4a7d5240",
+      "id": "f9086c40",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -492,7 +492,7 @@
       "log_text": "proto udp short duration high packet rate syn scan reconnaissance"
     },
     {
-      "id": "8af3ff77",
+      "id": "436d70c9",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -510,7 +510,7 @@
       "log_text": "proto tcp short duration high packet rate syn scan reconnaissance"
     },
     {
-      "id": "aea39fc9",
+      "id": "c85009d8",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -528,7 +528,7 @@
       "log_text": "proto udp short duration high packet rate syn scan reconnaissance"
     },
     {
-      "id": "07900413",
+      "id": "fc42acb8",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -546,7 +546,7 @@
       "log_text": "proto other short duration high packet rate syn scan reconnaissance"
     },
     {
-      "id": "86e5a5fd",
+      "id": "65c43dac",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -564,7 +564,7 @@
       "log_text": "proto udp short duration high packet rate syn scan reconnaissance"
     },
     {
-      "id": "b97b1e57",
+      "id": "2a418787",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -582,7 +582,7 @@
       "log_text": "proto other short duration syn scan reconnaissance"
     },
     {
-      "id": "9c5b4914",
+      "id": "e82a6c31",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -600,7 +600,7 @@
       "log_text": "proto other short duration high packet rate syn scan reconnaissance"
     },
     {
-      "id": "a74bb229",
+      "id": "61cede84",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -618,7 +618,7 @@
       "log_text": "proto tcp short duration high packet rate syn scan reconnaissance"
     },
     {
-      "id": "2a2d761c",
+      "id": "af684fb7",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -636,7 +636,7 @@
       "log_text": "proto tcp short duration high packet rate syn scan reconnaissance"
     },
     {
-      "id": "dc1ed171",
+      "id": "79c89519",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -654,7 +654,7 @@
       "log_text": "proto other short duration high packet rate syn scan reconnaissance"
     },
     {
-      "id": "07d95356",
+      "id": "d5f78196",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -672,7 +672,7 @@
       "log_text": "proto udp short duration high packet rate syn scan reconnaissance"
     },
     {
-      "id": "2a560641",
+      "id": "c47f75ea",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -690,7 +690,7 @@
       "log_text": "proto udp short duration high packet rate syn scan reconnaissance"
     },
     {
-      "id": "f63db662",
+      "id": "bbfb86fd",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -708,7 +708,7 @@
       "log_text": "proto tcp short duration high packet rate syn scan reconnaissance"
     },
     {
-      "id": "7af07376",
+      "id": "7ea8e8ab",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -726,7 +726,7 @@
       "log_text": "proto other short duration syn scan reconnaissance"
     },
     {
-      "id": "8912fad2",
+      "id": "de1a7b05",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -744,7 +744,7 @@
       "log_text": "proto other short duration high packet rate syn scan reconnaissance"
     },
     {
-      "id": "c4afb58f",
+      "id": "32ab5a4e",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -762,7 +762,7 @@
       "log_text": "proto udp short duration high packet rate syn scan reconnaissance"
     },
     {
-      "id": "c1a1f56e",
+      "id": "0494ba1e",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -780,7 +780,7 @@
       "log_text": "proto tcp short duration high packet rate syn scan reconnaissance"
     },
     {
-      "id": "7145c79d",
+      "id": "477b3635",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -798,7 +798,7 @@
       "log_text": "proto udp short duration high packet rate syn scan reconnaissance"
     },
     {
-      "id": "ea94b00a",
+      "id": "8db29b98",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "DDoS",
@@ -816,7 +816,7 @@
       "log_text": "proto udp high volume fwd packets flood high bytes per second syn flood flag"
     },
     {
-      "id": "1aa08cad",
+      "id": "f61978b6",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "DDoS",
@@ -834,7 +834,7 @@
       "log_text": "proto other high volume fwd packets flood high bytes per second high packet rate syn flood flag"
     },
     {
-      "id": "e8dd48f1",
+      "id": "220f065f",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -852,7 +852,7 @@
       "log_text": "proto other short duration high packet rate syn scan reconnaissance"
     },
     {
-      "id": "a98785d3",
+      "id": "4020d788",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "DoS Hulk",
@@ -870,7 +870,7 @@
       "log_text": "proto udp high volume fwd packets flood high bytes per second high packet rate syn flood flag"
     },
     {
-      "id": "46429e0d",
+      "id": "bc07e3f4",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -888,7 +888,7 @@
       "log_text": "proto other short duration high packet rate syn scan reconnaissance"
     },
     {
-      "id": "a0886227",
+      "id": "52e0da50",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "DDoS",
@@ -906,7 +906,7 @@
       "log_text": "proto udp high volume fwd packets flood high bytes per second high packet rate syn flood flag"
     },
     {
-      "id": "5cf21efa",
+      "id": "5f181b4c",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -924,7 +924,7 @@
       "log_text": "proto udp short duration high packet rate syn scan reconnaissance"
     },
     {
-      "id": "0419aee5",
+      "id": "dec3ce26",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "DoS slowloris",
@@ -942,7 +942,7 @@
       "log_text": "proto tcp high volume fwd packets flood high bytes per second syn flood flag"
     },
     {
-      "id": "b5a838a3",
+      "id": "02f192b3",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -960,7 +960,7 @@
       "log_text": "proto other short duration high packet rate syn scan reconnaissance"
     },
     {
-      "id": "aa9a2e8f",
+      "id": "e5ebc3e5",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "DoS Slowhttptest",
@@ -978,7 +978,7 @@
       "log_text": "proto other high volume fwd packets flood high bytes per second high packet rate syn flood flag"
     },
     {
-      "id": "b76d9be1",
+      "id": "a79ebccd",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "DoS Hulk",
@@ -996,7 +996,7 @@
       "log_text": "proto udp high volume fwd packets flood high bytes per second high packet rate syn flood flag"
     },
     {
-      "id": "849bff33",
+      "id": "7e01a716",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -1014,7 +1014,7 @@
       "log_text": "proto udp short duration high packet rate syn scan reconnaissance"
     },
     {
-      "id": "23cb72bc",
+      "id": "64e87876",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "DDoS",
@@ -1032,7 +1032,7 @@
       "log_text": "proto udp high volume fwd packets flood high bytes per second high packet rate syn flood flag"
     },
     {
-      "id": "b10e503f",
+      "id": "d2474ac1",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -1050,7 +1050,7 @@
       "log_text": "proto tcp short duration high packet rate syn scan reconnaissance"
     },
     {
-      "id": "f8f9328c",
+      "id": "0b79f5ae",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "DoS Slowhttptest",
@@ -1068,7 +1068,7 @@
       "log_text": "proto udp high volume fwd packets flood high bytes per second high packet rate syn flood flag"
     },
     {
-      "id": "fcd598e2",
+      "id": "1b17ae70",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -1086,7 +1086,7 @@
       "log_text": "proto tcp short duration high packet rate syn scan reconnaissance"
     },
     {
-      "id": "9e39782f",
+      "id": "68e41925",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -1104,7 +1104,7 @@
       "log_text": "proto tcp short duration high packet rate syn scan reconnaissance"
     },
     {
-      "id": "90bf2e4c",
+      "id": "2f3c393c",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -1122,7 +1122,7 @@
       "log_text": "proto other short duration high packet rate syn scan reconnaissance"
     },
     {
-      "id": "58276f86",
+      "id": "d40bd541",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -1140,7 +1140,7 @@
       "log_text": "proto tcp short duration high packet rate syn scan reconnaissance"
     },
     {
-      "id": "e03aff4c",
+      "id": "8e29c35b",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -1158,7 +1158,7 @@
       "log_text": "proto udp short duration high packet rate syn scan reconnaissance"
     },
     {
-      "id": "2ea8265a",
+      "id": "46c625a5",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "DDoS",
@@ -1176,7 +1176,7 @@
       "log_text": "proto tcp high volume fwd packets flood high bytes per second high packet rate syn flood flag"
     },
     {
-      "id": "181c79d9",
+      "id": "77eda472",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -1194,7 +1194,7 @@
       "log_text": "proto udp short duration high packet rate syn scan reconnaissance"
     },
     {
-      "id": "f72d18be",
+      "id": "adb3e95d",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "DoS slowloris",
@@ -1212,7 +1212,7 @@
       "log_text": "proto udp high volume fwd packets flood high bytes per second high packet rate"
     },
     {
-      "id": "5454b913",
+      "id": "b077bd5b",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -1230,7 +1230,7 @@
       "log_text": "proto tcp short duration high packet rate syn scan reconnaissance"
     },
     {
-      "id": "2500be70",
+      "id": "c2dc8b89",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "DoS Hulk",
@@ -1248,7 +1248,7 @@
       "log_text": "proto udp high volume fwd packets flood high bytes per second high packet rate syn flood flag"
     },
     {
-      "id": "90f6ee58",
+      "id": "02b3c26d",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -1266,7 +1266,7 @@
       "log_text": "proto udp short duration high packet rate syn scan reconnaissance"
     },
     {
-      "id": "cc3ff3fc",
+      "id": "36d5ba6c",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -1284,7 +1284,7 @@
       "log_text": "proto other short duration high packet rate syn scan reconnaissance"
     },
     {
-      "id": "b061ea07",
+      "id": "d02459f5",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "DoS Hulk",
@@ -1302,7 +1302,7 @@
       "log_text": "proto tcp high volume fwd packets flood high bytes per second high packet rate syn flood flag"
     },
     {
-      "id": "c95671f7",
+      "id": "07e05b77",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -1320,7 +1320,7 @@
       "log_text": "proto tcp short duration high packet rate syn scan reconnaissance"
     },
     {
-      "id": "ae9275e0",
+      "id": "7fc732dc",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -1338,7 +1338,7 @@
       "log_text": "proto other short duration high packet rate syn scan reconnaissance"
     },
     {
-      "id": "87a2c2a4",
+      "id": "cf6d508b",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -1356,7 +1356,7 @@
       "log_text": "proto udp short duration high packet rate syn scan reconnaissance"
     },
     {
-      "id": "f231d961",
+      "id": "325afcf5",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -1374,7 +1374,7 @@
       "log_text": "proto udp short duration high packet rate syn scan reconnaissance"
     },
     {
-      "id": "eeeb75f0",
+      "id": "eaa18d09",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -1392,7 +1392,7 @@
       "log_text": "proto udp short duration high packet rate syn scan reconnaissance"
     },
     {
-      "id": "1f59a742",
+      "id": "0e77f0b4",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -1410,7 +1410,7 @@
       "log_text": "proto tcp short duration high packet rate syn scan reconnaissance"
     },
     {
-      "id": "96e1bc96",
+      "id": "c903148a",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "DDoS",
@@ -1428,7 +1428,7 @@
       "log_text": "proto tcp elevated fwd packets high bytes per second high packet rate syn flood flag"
     },
     {
-      "id": "046d7227",
+      "id": "1e908c84",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -1446,7 +1446,7 @@
       "log_text": "proto tcp short duration high packet rate syn scan reconnaissance"
     },
     {
-      "id": "c49023f0",
+      "id": "0a8ca0d6",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "DDoS",
@@ -1464,7 +1464,7 @@
       "log_text": "proto tcp high volume fwd packets flood high bytes per second high packet rate syn flood flag"
     },
     {
-      "id": "8392202a",
+      "id": "7d4f1544",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "DoS Hulk",
@@ -1482,7 +1482,7 @@
       "log_text": "proto other high volume fwd packets flood high bytes per second high packet rate syn flood flag"
     },
     {
-      "id": "df8f6ced",
+      "id": "363022e5",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "DoS Slowhttptest",
@@ -1500,7 +1500,7 @@
       "log_text": "proto other high volume fwd packets flood high bytes per second high packet rate syn flood flag"
     },
     {
-      "id": "83774711",
+      "id": "1912612b",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -1518,7 +1518,7 @@
       "log_text": "proto udp short duration high packet rate syn scan reconnaissance"
     },
     {
-      "id": "42d17f04",
+      "id": "6b5a3420",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -1536,7 +1536,7 @@
       "log_text": "proto other short duration high packet rate syn scan reconnaissance"
     },
     {
-      "id": "d260fdbd",
+      "id": "f4d0458d",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -1554,7 +1554,7 @@
       "log_text": "proto udp short duration high packet rate syn scan reconnaissance"
     },
     {
-      "id": "a246c3ff",
+      "id": "214c9bc5",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -1572,7 +1572,7 @@
       "log_text": "proto other short duration high packet rate syn scan reconnaissance"
     },
     {
-      "id": "6a4256bb",
+      "id": "ab49d603",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -1590,7 +1590,7 @@
       "log_text": "proto tcp short duration high packet rate syn scan reconnaissance"
     },
     {
-      "id": "db3cc1f1",
+      "id": "f3711885",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -1608,7 +1608,7 @@
       "log_text": "proto other short duration high packet rate syn scan reconnaissance"
     },
     {
-      "id": "c9ccc4c7",
+      "id": "578a81f8",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -1626,7 +1626,7 @@
       "log_text": "proto other short duration high packet rate syn scan reconnaissance"
     },
     {
-      "id": "f4ac4b6c",
+      "id": "a7ca1140",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -1644,7 +1644,7 @@
       "log_text": "proto other short duration high packet rate syn scan reconnaissance"
     },
     {
-      "id": "fd3c7dea",
+      "id": "bf033a80",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -1662,7 +1662,7 @@
       "log_text": "proto udp short duration syn scan reconnaissance"
     },
     {
-      "id": "942b4204",
+      "id": "642460ea",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "DDoS",
@@ -1680,7 +1680,7 @@
       "log_text": "proto tcp elevated fwd packets high bytes per second high packet rate syn flood flag syn scan reconnaissance"
     },
     {
-      "id": "143528ab",
+      "id": "07c0704c",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -1698,7 +1698,7 @@
       "log_text": "proto other short duration high packet rate syn scan reconnaissance"
     },
     {
-      "id": "0cfed1fa",
+      "id": "6ad99059",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -1716,7 +1716,7 @@
       "log_text": "proto tcp short duration high packet rate syn scan reconnaissance"
     },
     {
-      "id": "896cf634",
+      "id": "7b6b9016",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -1734,7 +1734,7 @@
       "log_text": "proto other short duration high packet rate syn scan reconnaissance"
     },
     {
-      "id": "c7e3aa64",
+      "id": "ef522817",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "DoS Hulk",
@@ -1752,7 +1752,7 @@
       "log_text": "proto tcp high volume fwd packets flood high bytes per second high packet rate syn flood flag"
     },
     {
-      "id": "8290d4f1",
+      "id": "162ab50c",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -1770,7 +1770,7 @@
       "log_text": "proto tcp short duration high packet rate syn scan reconnaissance"
     },
     {
-      "id": "8c67d6df",
+      "id": "968f0a86",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "DoS Hulk",
@@ -1788,7 +1788,7 @@
       "log_text": "proto other elevated fwd packets high bytes per second high packet rate syn flood flag"
     },
     {
-      "id": "cae61658",
+      "id": "804b5fae",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -1806,7 +1806,7 @@
       "log_text": "proto udp short duration high packet rate syn scan reconnaissance"
     },
     {
-      "id": "ef1809df",
+      "id": "0f2a307a",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -1824,7 +1824,7 @@
       "log_text": "proto tcp short duration high packet rate syn scan reconnaissance"
     },
     {
-      "id": "300bb23a",
+      "id": "693392c2",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "PortScan",
@@ -1842,7 +1842,7 @@
       "log_text": "proto tcp short duration high packet rate syn scan reconnaissance"
     },
     {
-      "id": "25c0cbc7",
+      "id": "c91cc9c5",
       "source_ip": "",
       "dest_ip": "",
       "attack_type": "DoS Slowhttptest",
