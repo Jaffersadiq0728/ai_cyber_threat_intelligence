@@ -7,753 +7,151 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.1/socket.io.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
   <style>
-    /* ─── reset & base ─────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@400;500;600;700&display=swap');
-
     :root {
-      --bg:        #050a0e;
-      --bg2:       #0a1118;
-      --bg3:       #0d1922;
-      --panel:     #0b1520;
-      --border:    #0f2a1e;
-      --border2:   #1a3a2a;
-      --green:     #00ff88;
-      --green2:    #00cc6a;
-      --green3:    #007a40;
-      --green-dim: #003820;
-      --amber:     #ffaa00;
-      --amber-dim: #3a2500;
-      --red:       #ff3355;
-      --red-dim:   #2a0010;
-      --blue:      #00aaff;
-      --blue-dim:  #00183a;
-      --text:      #c8e6d0;
-      --text2:     #5a8a6a;
-      --text3:     #2a5a3a;
-      --mono:      'Share Tech Mono', monospace;
-      --sans:      'Rajdhani', sans-serif;
-      --glow:      0 0 12px rgba(0,255,136,0.25);
-      --glow-red:  0 0 12px rgba(255,51,85,0.3);
-    }
-
-    html, body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--sans);
-      font-size: 14px;
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-
-    /* ─── scanline overlay ─────────────────────────────────── */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background: repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 2px,
-        rgba(0,255,136,0.015) 2px,
-        rgba(0,255,136,0.015) 4px
-      );
-      pointer-events: none;
-      z-index: 9999;
-    }
-
-    /* ─── grid noise texture ───────────────────────────────── */
-    body::after {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image:
-        radial-gradient(circle at 20% 50%, rgba(0,255,136,0.03) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(0,170,255,0.03) 0%, transparent 50%);
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    /* ─── header ───────────────────────────────────────────── */
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(5,10,14,0.95);
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid var(--border2);
-      padding: 0 24px;
-      height: 52px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .logo-icon {
-      width: 28px;
-      height: 28px;
-      border: 1.5px solid var(--green);
-      border-radius: 4px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      box-shadow: var(--glow);
-    }
-
-    .logo-icon::before {
-      content: '';
-      width: 14px;
-      height: 14px;
-      border: 1.5px solid var(--green);
-      border-radius: 2px;
-      transform: rotate(45deg);
-    }
-
-    .logo-text {
-      font-family: var(--mono);
-      font-size: 13px;
-      color: var(--green);
-      letter-spacing: 0.12em;
-      text-shadow: var(--glow);
-    }
-
-    .logo-text span {
-      color: var(--text2);
-      font-size: 11px;
-      display: block;
-      letter-spacing: 0.08em;
-      margin-top: 1px;
-    }
-
-    .header-right {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-    }
-
-    .sys-status {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      font-family: var(--mono);
-      font-size: 11px;
-      color: var(--text2);
-    }
-
-    .status-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--green);
-      box-shadow: 0 0 8px var(--green);
-      animation: pulse-dot 2s ease-in-out infinite;
-    }
-
-    @keyframes pulse-dot {
-      0%, 100% { opacity: 1; box-shadow: 0 0 8px var(--green); }
-      50% { opacity: 0.6; box-shadow: 0 0 3px var(--green); }
-    }
-
-    .clock {
-      font-family: var(--mono);
-      font-size: 12px;
-      color: var(--text2);
-      letter-spacing: 0.06em;
-    }
-
-    .threat-level {
-      font-family: var(--mono);
-      font-size: 11px;
-      padding: 4px 12px;
-      border-radius: 3px;
-      border: 1px solid var(--red);
-      color: var(--red);
-      letter-spacing: 0.1em;
-      animation: blink-border 1.5s step-end infinite;
-    }
-
-    @keyframes blink-border {
-      0%, 100% { border-color: var(--red); opacity: 1; }
-      50% { border-color: transparent; opacity: 0.7; }
-    }
-
-    /* ─── layout ───────────────────────────────────────────── */
-    .app {
-      position: relative;
-      z-index: 1;
-      padding: 20px 24px;
-      display: grid;
-      grid-template-rows: auto auto 1fr auto;
-      gap: 16px;
-      min-height: calc(100vh - 52px);
-    }
-
-    /* ─── stat bar ─────────────────────────────────────────── */
-    .stat-bar {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 12px;
-    }
-
-    .stat-card {
-      background: var(--panel);
-      border: 1px solid var(--border2);
-      border-radius: 6px;
-      padding: 14px 16px;
-      position: relative;
-      overflow: hidden;
-      transition: border-color 0.3s;
-    }
-
-    .stat-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, var(--green3), var(--green), var(--green3));
-      opacity: 0.6;
-    }
-
-    .stat-card:hover { border-color: var(--green3); }
-
-    .stat-label {
-      font-family: var(--mono);
-      font-size: 10px;
-      color: var(--text3);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      margin-bottom: 8px;
-    }
-
-    .stat-value {
-      font-family: var(--mono);
-      font-size: 26px;
-      font-weight: 400;
-      line-height: 1;
-      color: var(--green);
-      text-shadow: var(--glow);
-    }
-
-    .stat-value.red { color: var(--red); text-shadow: var(--glow-red); }
-    .stat-value.amber { color: var(--amber); text-shadow: 0 0 10px rgba(255,170,0,0.3); }
-    .stat-value.blue { color: var(--blue); text-shadow: 0 0 10px rgba(0,170,255,0.3); }
-
-    .stat-delta {
-      font-family: var(--mono);
-      font-size: 10px;
-      color: var(--text2);
-      margin-top: 4px;
-    }
-
-    /* ─── main grid ────────────────────────────────────────── */
-    .main-grid {
-      display: grid;
-      grid-template-columns: 1fr 380px;
-      gap: 16px;
-    }
-
-    .left-col {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .right-col {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    /* ─── panel base ───────────────────────────────────────── */
-    .panel {
-      background: var(--panel);
-      border: 1px solid var(--border2);
-      border-radius: 6px;
-      overflow: hidden;
-    }
-
-    .panel-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px 16px;
-      border-bottom: 1px solid var(--border);
-      background: rgba(0,255,136,0.03);
-    }
-
-    .panel-title {
-      font-family: var(--mono);
-      font-size: 11px;
-      color: var(--green2);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .panel-title::before {
-      content: '//';
-      color: var(--green3);
-    }
-
-    .panel-badge {
-      font-family: var(--mono);
-      font-size: 10px;
-      padding: 2px 8px;
-      border-radius: 2px;
-      border: 1px solid currentColor;
-    }
-
-    .badge-live { color: var(--green); border-color: var(--green3); animation: pulse-dot 2s infinite; }
-    .badge-red  { color: var(--red);   border-color: var(--red); }
-    .badge-amber{ color: var(--amber); border-color: rgba(255,170,0,0.4); }
-    .badge-blue { color: var(--blue);  border-color: rgba(0,170,255,0.4); }
-
-    /* ─── log stream ───────────────────────────────────────── */
-    .log-stream {
-      padding: 12px;
-      height: 220px;
-      overflow-y: auto;
-      scrollbar-width: thin;
-      scrollbar-color: var(--green3) transparent;
-    }
-
-    .log-stream::-webkit-scrollbar { width: 4px; }
-    .log-stream::-webkit-scrollbar-track { background: transparent; }
-    .log-stream::-webkit-scrollbar-thumb { background: var(--green3); border-radius: 2px; }
-
-    .log-entry {
-      font-family: var(--mono);
-      font-size: 11px;
-      line-height: 1.7;
-      padding: 2px 6px;
-      border-radius: 2px;
-      margin-bottom: 1px;
-      display: flex;
-      gap: 10px;
-      opacity: 0;
-      animation: fadeInLine 0.3s forwards;
-      border-left: 2px solid transparent;
-    }
-
-    @keyframes fadeInLine {
-      from { opacity: 0; transform: translateX(-4px); }
-      to   { opacity: 1; transform: translateX(0); }
-    }
-
-    .log-entry.critical { border-left-color: var(--red); background: rgba(255,51,85,0.06); }
-    .log-entry.high     { border-left-color: var(--amber); background: rgba(255,170,0,0.05); }
-    .log-entry.medium   { border-left-color: var(--blue); background: rgba(0,170,255,0.04); }
-    .log-entry.normal   { border-left-color: var(--green3); color: var(--text2); }
-
-    .log-ts   { color: var(--text3); flex-shrink: 0; }
-    .log-ip   { color: var(--blue); flex-shrink: 0; }
-    .log-msg  { color: inherit; flex: 1; }
-    .log-score { flex-shrink: 0; }
-
-    .score-crit { color: var(--red); }
-    .score-high { color: var(--amber); }
-    .score-med  { color: var(--blue); }
-    .score-low  { color: var(--green2); }
-
-    /* ─── model ensemble panel ─────────────────────────────── */
-    .ensemble-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      background: var(--border);
-    }
-
-    .model-cell {
-      background: var(--panel);
-      padding: 14px;
-      text-align: center;
-    }
-
-    .model-name {
-      font-family: var(--mono);
-      font-size: 10px;
-      color: var(--text2);
-      letter-spacing: 0.08em;
-      margin-bottom: 8px;
-    }
-
-    .model-score {
-      font-family: var(--mono);
-      font-size: 22px;
-      color: var(--green);
-      text-shadow: var(--glow);
-    }
-
-    .model-bar-wrap {
-      margin-top: 8px;
-      height: 3px;
-      background: var(--bg3);
-      border-radius: 2px;
-      overflow: hidden;
-    }
-
-    .model-bar {
-      height: 100%;
-      background: linear-gradient(90deg, var(--green3), var(--green));
-      border-radius: 2px;
-      transition: width 0.8s ease;
-    }
-
-    .model-label {
-      font-family: var(--mono);
-      font-size: 9px;
-      color: var(--text3);
-      margin-top: 5px;
-    }
-
-    /* ─── alert feed ───────────────────────────────────────── */
-    .alert-feed {
-      max-height: 420px;
-      overflow-y: auto;
-      scrollbar-width: thin;
-      scrollbar-color: var(--green3) transparent;
-    }
-
-    .alert-feed::-webkit-scrollbar { width: 4px; }
-    .alert-feed::-webkit-scrollbar-thumb { background: var(--green3); }
-
-    .alert-item {
-      padding: 12px 14px;
-      border-bottom: 1px solid var(--border);
-      cursor: pointer;
-      transition: background 0.2s;
-      position: relative;
-      animation: slideIn 0.4s ease forwards;
-    }
-
-    @keyframes slideIn {
-      from { opacity: 0; transform: translateY(-6px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    .alert-item:hover { background: rgba(0,255,136,0.04); }
-    .alert-item:last-child { border-bottom: none; }
-
-    .alert-item.critical::before { content:''; position:absolute; left:0; top:0; bottom:0; width:3px; background:var(--red); box-shadow: var(--glow-red); }
-    .alert-item.high::before     { content:''; position:absolute; left:0; top:0; bottom:0; width:3px; background:var(--amber); }
-    .alert-item.medium::before   { content:''; position:absolute; left:0; top:0; bottom:0; width:3px; background:var(--blue); }
-    .alert-item.low::before      { content:''; position:absolute; left:0; top:0; bottom:0; width:3px; background:var(--green3); }
-
-    .alert-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 5px;
-    }
-
-    .alert-type {
-      font-family: var(--mono);
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.06em;
-    }
-
-    .alert-type.critical { color: var(--red); }
-    .alert-type.high     { color: var(--amber); }
-    .alert-type.medium   { color: var(--blue); }
-    .alert-type.low      { color: var(--green2); }
-
-    .alert-time {
-      font-family: var(--mono);
-      font-size: 10px;
-      color: var(--text3);
-    }
-
-    .alert-body {
-      font-size: 12px;
-      color: var(--text2);
-      line-height: 1.5;
-      font-family: var(--sans);
-    }
-
-    .alert-ips {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 5px;
-    }
-
-    .ip-tag {
-      font-family: var(--mono);
-      font-size: 10px;
-      padding: 2px 7px;
-      border-radius: 2px;
-      background: var(--bg3);
-      border: 1px solid var(--border2);
-      color: var(--blue);
-    }
-
-    .mitre-tag {
-      font-family: var(--mono);
-      font-size: 10px;
-      padding: 2px 7px;
-      border-radius: 2px;
-      background: var(--amber-dim);
-      border: 1px solid rgba(255,170,0,0.2);
-      color: var(--amber);
-    }
-
-    .threat-score-pill {
-      font-family: var(--mono);
-      font-size: 10px;
-      padding: 2px 7px;
-      border-radius: 2px;
-      margin-left: auto;
-    }
-
-    /* ─── graph panel ──────────────────────────────────────── */
-    #graph-svg {
-      width: 100%;
-      height: 300px;
-      display: block;
-    }
-
-    .graph-node { cursor: pointer; }
-    .graph-node circle { transition: r 0.3s; }
-    .graph-node:hover circle { r: 10; }
-    .graph-link { stroke-opacity: 0.5; }
-
-    .node-label {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 9px;
-      fill: #5a8a6a;
-      pointer-events: none;
-    }
-
-    /* ─── mitre panel ──────────────────────────────────────── */
-    .mitre-list { padding: 10px 0; }
-
-    .mitre-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 8px 14px;
-      border-bottom: 1px solid var(--border);
-      transition: background 0.2s;
-    }
-
-    .mitre-row:hover { background: rgba(0,255,136,0.03); }
-    .mitre-row:last-child { border-bottom: none; }
-
-    .mitre-tactic {
-      font-family: var(--mono);
-      font-size: 10px;
-      color: var(--amber);
-      width: 130px;
-      flex-shrink: 0;
-      letter-spacing: 0.05em;
-    }
-
-    .mitre-bar-wrap {
-      flex: 1;
-      height: 4px;
-      background: var(--bg3);
-      border-radius: 2px;
-      overflow: hidden;
-    }
-
-    .mitre-bar-fill {
-      height: 100%;
-      background: linear-gradient(90deg, var(--amber-dim), var(--amber));
-      border-radius: 2px;
-      transition: width 0.6s ease;
-    }
-
-    .mitre-count {
-      font-family: var(--mono);
-      font-size: 11px;
-      color: var(--text2);
-      width: 24px;
-      text-align: right;
-    }
-
-    /* ─── bottom bar ───────────────────────────────────────── */
-    .bottom-bar {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 12px;
-    }
-
-    /* ─── NLP token strip ──────────────────────────────────── */
-    .token-strip {
-      padding: 12px 14px;
-      min-height: 60px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      align-items: flex-start;
-    }
-
-    .token {
-      font-family: var(--mono);
-      font-size: 11px;
-      padding: 3px 9px;
-      border-radius: 3px;
-      border: 1px solid;
-      animation: tokenPop 0.3s ease forwards;
-      opacity: 0;
-    }
-
-    @keyframes tokenPop {
-      from { opacity: 0; transform: scale(0.85); }
-      to   { opacity: 1; transform: scale(1); }
-    }
-
-    .tok-ip     { color: var(--blue);  border-color: rgba(0,170,255,0.3); background: var(--blue-dim); }
-    .tok-user   { color: var(--green2);border-color: var(--green3);       background: var(--green-dim); }
-    .tok-action { color: var(--amber); border-color: rgba(255,170,0,0.3); background: var(--amber-dim); }
-    .tok-file   { color: #cc88ff;      border-color: rgba(204,136,255,0.3); background: rgba(60,0,80,0.4); }
-    .tok-threat { color: var(--red);   border-color: rgba(255,51,85,0.3);  background: var(--red-dim); }
-
-    /* ─── detail drawer ────────────────────────────────────── */
-    #detail-drawer {
-      position: fixed;
-      right: 0; top: 52px; bottom: 0;
-      width: 380px;
-      background: var(--bg2);
-      border-left: 1px solid var(--border2);
-      z-index: 200;
-      transform: translateX(100%);
-      transition: transform 0.35s cubic-bezier(0.16,1,0.3,1);
-      overflow-y: auto;
-      padding: 20px;
-    }
-
-    #detail-drawer.open { transform: translateX(0); }
-
-    .drawer-close {
-      position: absolute;
-      top: 14px; right: 14px;
-      background: none;
-      border: 1px solid var(--border2);
-      color: var(--text2);
-      font-family: var(--mono);
-      font-size: 12px;
-      padding: 4px 10px;
-      border-radius: 3px;
-      cursor: pointer;
-    }
-
-    .drawer-close:hover { border-color: var(--red); color: var(--red); }
-
-    .drawer-title {
-      font-family: var(--mono);
-      font-size: 13px;
-      color: var(--green);
-      margin-bottom: 16px;
-      letter-spacing: 0.08em;
-    }
-
-    .drawer-field {
-      margin-bottom: 12px;
-    }
-
-    .drawer-field label {
-      display: block;
-      font-family: var(--mono);
-      font-size: 10px;
-      color: var(--text3);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      margin-bottom: 4px;
-    }
-
-    .drawer-field .val {
-      font-family: var(--mono);
-      font-size: 12px;
-      color: var(--text);
-      background: var(--bg3);
-      border: 1px solid var(--border);
-      border-radius: 3px;
-      padding: 7px 10px;
-      word-break: break-all;
-    }
-
-    .drawer-score-bar {
-      height: 6px;
-      background: var(--bg3);
-      border-radius: 3px;
-      overflow: hidden;
-      margin-top: 6px;
-    }
-
-    .drawer-score-fill {
-      height: 100%;
-      border-radius: 3px;
-      transition: width 0.6s ease;
-    }
-
-    /* ─── anomaly chart ────────────────────────────────────── */
-    #anomaly-chart {
-      width: 100%;
-      height: 90px;
-      display: block;
-    }
-
-    /* ─── empty state ──────────────────────────────────────── */
-    .empty {
-      padding: 30px;
-      text-align: center;
-      font-family: var(--mono);
-      font-size: 11px;
-      color: var(--text3);
-    }
-
-    /* ─── scrollbar ────────────────────────────────────────── */
-    ::-webkit-scrollbar { width: 4px; height: 4px; }
-    ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: var(--green3); border-radius: 2px; }
-
-    /* ─── connection banner ────────────────────────────────── */
-    #conn-banner {
-      position: fixed;
-      bottom: 16px; left: 50%;
-      transform: translateX(-50%);
-      background: var(--bg2);
-      border: 1px solid var(--border2);
-      border-radius: 4px;
-      padding: 8px 18px;
-      font-family: var(--mono);
-      font-size: 11px;
-      color: var(--text2);
-      z-index: 500;
-      display: none;
-    }
-
-    #conn-banner.show { display: block; }
-    #conn-banner.err { border-color: var(--red); color: var(--red); }
-
-    /* ─── typing cursor ────────────────────────────────────── */
-    .cursor {
-      display: inline-block;
-      width: 7px; height: 13px;
-      background: var(--green);
-      margin-left: 2px;
-      vertical-align: text-bottom;
-      animation: blink 1s step-end infinite;
-    }
-
-    @keyframes blink { 0%,100% { opacity:1; } 50% { opacity:0; } }
+      --bg:#050a0e; --bg2:#0a1118; --bg3:#0d1922; --panel:#0b1520;
+      --border:#0f2a1e; --border2:#1a3a2a;
+      --green:#00ff88; --green2:#00cc6a; --green3:#007a40; --green-dim:#003820;
+      --amber:#ffaa00; --amber-dim:#3a2500;
+      --red:#ff3355; --red-dim:#2a0010;
+      --blue:#00aaff; --blue-dim:#00183a;
+      --text:#c8e6d0; --text2:#5a8a6a; --text3:#2a5a3a;
+      --mono:'Share Tech Mono',monospace; --sans:'Rajdhani',sans-serif;
+      --glow:0 0 12px rgba(0,255,136,0.25); --glow-red:0 0 12px rgba(255,51,85,0.3);
+    }
+    html,body { background:var(--bg); color:var(--text); font-family:var(--sans); font-size:14px; min-height:100vh; overflow-x:hidden; }
+    body::before { content:''; position:fixed; inset:0; background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,255,136,0.015) 2px,rgba(0,255,136,0.015) 4px); pointer-events:none; z-index:9999; }
+    body::after { content:''; position:fixed; inset:0; background-image:radial-gradient(circle at 20% 50%,rgba(0,255,136,0.03) 0%,transparent 50%),radial-gradient(circle at 80% 20%,rgba(0,170,255,0.03) 0%,transparent 50%); pointer-events:none; z-index:0; }
+    header { position:sticky; top:0; z-index:100; background:rgba(5,10,14,0.95); backdrop-filter:blur(8px); border-bottom:1px solid var(--border2); padding:0 24px; height:52px; display:flex; align-items:center; justify-content:space-between; }
+    .logo { display:flex; align-items:center; gap:12px; }
+    .logo-icon { width:28px; height:28px; border:1.5px solid var(--green); border-radius:4px; display:flex; align-items:center; justify-content:center; position:relative; box-shadow:var(--glow); }
+    .logo-icon::before { content:''; width:14px; height:14px; border:1.5px solid var(--green); border-radius:2px; transform:rotate(45deg); }
+    .logo-text { font-family:var(--mono); font-size:13px; color:var(--green); letter-spacing:.12em; text-shadow:var(--glow); }
+    .logo-text span { color:var(--text2); font-size:11px; display:block; letter-spacing:.08em; margin-top:1px; }
+    .header-right { display:flex; align-items:center; gap:20px; }
+    .sys-status { display:flex; align-items:center; gap:7px; font-family:var(--mono); font-size:11px; color:var(--text2); }
+    .status-dot { width:7px; height:7px; border-radius:50%; background:var(--green); box-shadow:0 0 8px var(--green); animation:pulse-dot 2s ease-in-out infinite; }
+    @keyframes pulse-dot { 0%,100%{opacity:1;box-shadow:0 0 8px var(--green)} 50%{opacity:.6;box-shadow:0 0 3px var(--green)} }
+    .clock { font-family:var(--mono); font-size:12px; color:var(--text2); letter-spacing:.06em; }
+    .threat-level { font-family:var(--mono); font-size:11px; padding:4px 12px; border-radius:3px; border:1px solid var(--red); color:var(--red); letter-spacing:.1em; animation:blink-border 1.5s step-end infinite; }
+    @keyframes blink-border { 0%,100%{border-color:var(--red);opacity:1} 50%{border-color:transparent;opacity:.7} }
+    .app { position:relative; z-index:1; padding:20px 24px; display:grid; grid-template-rows:auto auto 1fr auto; gap:16px; min-height:calc(100vh - 52px); }
+    .stat-bar { display:grid; grid-template-columns:repeat(5,1fr); gap:12px; }
+    .stat-card { background:var(--panel); border:1px solid var(--border2); border-radius:6px; padding:14px 16px; position:relative; overflow:hidden; transition:border-color .3s; }
+    .stat-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,var(--green3),var(--green),var(--green3)); opacity:.6; }
+    .stat-card:hover { border-color:var(--green3); }
+    .stat-label { font-family:var(--mono); font-size:10px; color:var(--text3); letter-spacing:.12em; text-transform:uppercase; margin-bottom:8px; }
+    .stat-value { font-family:var(--mono); font-size:26px; font-weight:400; line-height:1; color:var(--green); text-shadow:var(--glow); }
+    .stat-value.red { color:var(--red); text-shadow:var(--glow-red); }
+    .stat-value.amber { color:var(--amber); text-shadow:0 0 10px rgba(255,170,0,.3); }
+    .stat-value.blue { color:var(--blue); text-shadow:0 0 10px rgba(0,170,255,.3); }
+    .stat-delta { font-family:var(--mono); font-size:10px; color:var(--text2); margin-top:4px; }
+    .main-grid { display:grid; grid-template-columns:1fr 380px; gap:16px; }
+    .left-col,.right-col { display:flex; flex-direction:column; gap:16px; }
+    .panel { background:var(--panel); border:1px solid var(--border2); border-radius:6px; overflow:hidden; }
+    .panel-header { display:flex; align-items:center; justify-content:space-between; padding:10px 16px; border-bottom:1px solid var(--border); background:rgba(0,255,136,.03); }
+    .panel-title { font-family:var(--mono); font-size:11px; color:var(--green2); letter-spacing:.1em; text-transform:uppercase; display:flex; align-items:center; gap:8px; }
+    .panel-title::before { content:'//'; color:var(--green3); }
+    .panel-badge { font-family:var(--mono); font-size:10px; padding:2px 8px; border-radius:2px; border:1px solid currentColor; }
+    .badge-live { color:var(--green); border-color:var(--green3); animation:pulse-dot 2s infinite; }
+    .badge-red  { color:var(--red);   border-color:var(--red); }
+    .badge-amber{ color:var(--amber); border-color:rgba(255,170,0,.4); }
+    .badge-blue { color:var(--blue);  border-color:rgba(0,170,255,.4); }
+    .log-stream { padding:12px; height:220px; overflow-y:auto; scrollbar-width:thin; scrollbar-color:var(--green3) transparent; }
+    .log-stream::-webkit-scrollbar { width:4px; }
+    .log-stream::-webkit-scrollbar-thumb { background:var(--green3); border-radius:2px; }
+    .log-entry { font-family:var(--mono); font-size:11px; line-height:1.7; padding:2px 6px; border-radius:2px; margin-bottom:1px; display:flex; gap:10px; opacity:0; animation:fadeInLine .3s forwards; border-left:2px solid transparent; }
+    @keyframes fadeInLine { from{opacity:0;transform:translateX(-4px)} to{opacity:1;transform:translateX(0)} }
+    .log-entry.critical { border-left-color:var(--red); background:rgba(255,51,85,.06); }
+    .log-entry.high     { border-left-color:var(--amber); background:rgba(255,170,0,.05); }
+    .log-entry.medium   { border-left-color:var(--blue); background:rgba(0,170,255,.04); }
+    .log-entry.normal   { border-left-color:var(--green3); color:var(--text2); }
+    .log-ts  { color:var(--text3); flex-shrink:0; }
+    .log-ip  { color:var(--blue); flex-shrink:0; }
+    .log-msg { color:inherit; flex:1; }
+    .log-score { flex-shrink:0; }
+    .score-crit { color:var(--red); }
+    .score-high { color:var(--amber); }
+    .score-med  { color:var(--blue); }
+    .score-low  { color:var(--green2); }
+    .ensemble-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--border); }
+    .model-cell { background:var(--panel); padding:14px; text-align:center; }
+    .model-name { font-family:var(--mono); font-size:10px; color:var(--text2); letter-spacing:.08em; margin-bottom:8px; }
+    .model-score { font-family:var(--mono); font-size:22px; color:var(--green); text-shadow:var(--glow); }
+    .model-bar-wrap { margin-top:8px; height:3px; background:var(--bg3); border-radius:2px; overflow:hidden; }
+    .model-bar { height:100%; background:linear-gradient(90deg,var(--green3),var(--green)); border-radius:2px; transition:width .8s ease; }
+    .model-label { font-family:var(--mono); font-size:9px; color:var(--text3); margin-top:5px; }
+    .alert-feed { max-height:420px; overflow-y:auto; scrollbar-width:thin; scrollbar-color:var(--green3) transparent; }
+    .alert-feed::-webkit-scrollbar { width:4px; }
+    .alert-feed::-webkit-scrollbar-thumb { background:var(--green3); }
+    .alert-item { padding:12px 14px; border-bottom:1px solid var(--border); cursor:pointer; transition:background .2s; position:relative; animation:slideIn .4s ease forwards; }
+    @keyframes slideIn { from{opacity:0;transform:translateY(-6px)} to{opacity:1;transform:translateY(0)} }
+    .alert-item:hover { background:rgba(0,255,136,.04); }
+    .alert-item:last-child { border-bottom:none; }
+    .alert-item.critical::before,.alert-item.high::before,.alert-item.medium::before,.alert-item.low::before { content:''; position:absolute; left:0; top:0; bottom:0; width:3px; }
+    .alert-item.critical::before { background:var(--red); box-shadow:var(--glow-red); }
+    .alert-item.high::before     { background:var(--amber); }
+    .alert-item.medium::before   { background:var(--blue); }
+    .alert-item.low::before      { background:var(--green3); }
+    .alert-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:5px; }
+    .alert-type { font-family:var(--mono); font-size:11px; font-weight:600; letter-spacing:.06em; }
+    .alert-type.critical { color:var(--red); }
+    .alert-type.high     { color:var(--amber); }
+    .alert-type.medium   { color:var(--blue); }
+    .alert-type.low      { color:var(--green2); }
+    .alert-time { font-family:var(--mono); font-size:10px; color:var(--text3); }
+    .alert-body { font-size:12px; color:var(--text2); line-height:1.5; font-family:var(--sans); }
+    .alert-ips { display:flex; align-items:center; gap:8px; margin-top:5px; flex-wrap:wrap; }
+    .ip-tag  { font-family:var(--mono); font-size:10px; padding:2px 7px; border-radius:2px; background:var(--bg3); border:1px solid var(--border2); color:var(--blue); }
+    .mitre-tag { font-family:var(--mono); font-size:10px; padding:2px 7px; border-radius:2px; background:var(--amber-dim); border:1px solid rgba(255,170,0,.2); color:var(--amber); }
+    .threat-score-pill { font-family:var(--mono); font-size:10px; padding:2px 7px; border-radius:2px; margin-left:auto; }
+    #graph-svg { width:100%; height:300px; display:block; }
+    .graph-node { cursor:pointer; }
+    .graph-node circle { transition:r .3s; }
+    .graph-node:hover circle { r:10; }
+    .graph-link { stroke-opacity:.5; }
+    .node-label { font-family:'Share Tech Mono',monospace; font-size:9px; fill:#5a8a6a; pointer-events:none; }
+    .mitre-list { padding:10px 0; }
+    .mitre-row { display:flex; align-items:center; gap:10px; padding:8px 14px; border-bottom:1px solid var(--border); transition:background .2s; }
+    .mitre-row:hover { background:rgba(0,255,136,.03); }
+    .mitre-row:last-child { border-bottom:none; }
+    .mitre-tactic { font-family:var(--mono); font-size:10px; color:var(--amber); width:130px; flex-shrink:0; letter-spacing:.05em; }
+    .mitre-bar-wrap { flex:1; height:4px; background:var(--bg3); border-radius:2px; overflow:hidden; }
+    .mitre-bar-fill { height:100%; background:linear-gradient(90deg,var(--amber-dim),var(--amber)); border-radius:2px; transition:width .6s ease; }
+    .mitre-count { font-family:var(--mono); font-size:11px; color:var(--text2); width:24px; text-align:right; }
+    .token-strip { padding:12px 14px; min-height:60px; display:flex; flex-wrap:wrap; gap:6px; align-items:flex-start; }
+    .token { font-family:var(--mono); font-size:11px; padding:3px 9px; border-radius:3px; border:1px solid; animation:tokenPop .3s ease forwards; opacity:0; }
+    @keyframes tokenPop { from{opacity:0;transform:scale(.85)} to{opacity:1;transform:scale(1)} }
+    .tok-ip     { color:var(--blue);  border-color:rgba(0,170,255,.3); background:var(--blue-dim); }
+    .tok-user   { color:var(--green2);border-color:var(--green3);      background:var(--green-dim); }
+    .tok-action { color:var(--amber); border-color:rgba(255,170,0,.3); background:var(--amber-dim); }
+    .tok-file   { color:#cc88ff;      border-color:rgba(204,136,255,.3); background:rgba(60,0,80,.4); }
+    .tok-threat { color:var(--red);   border-color:rgba(255,51,85,.3);  background:var(--red-dim); }
+    #detail-drawer { position:fixed; right:0; top:52px; bottom:0; width:380px; background:var(--bg2); border-left:1px solid var(--border2); z-index:200; transform:translateX(100%); transition:transform .35s cubic-bezier(.16,1,.3,1); overflow-y:auto; padding:20px; }
+    #detail-drawer.open { transform:translateX(0); }
+    .drawer-close { position:absolute; top:14px; right:14px; background:none; border:1px solid var(--border2); color:var(--text2); font-family:var(--mono); font-size:12px; padding:4px 10px; border-radius:3px; cursor:pointer; }
+    .drawer-close:hover { border-color:var(--red); color:var(--red); }
+    .drawer-title { font-family:var(--mono); font-size:13px; color:var(--green); margin-bottom:16px; letter-spacing:.08em; }
+    .drawer-field { margin-bottom:12px; }
+    .drawer-field label { display:block; font-family:var(--mono); font-size:10px; color:var(--text3); letter-spacing:.1em; text-transform:uppercase; margin-bottom:4px; }
+    .drawer-field .val { font-family:var(--mono); font-size:12px; color:var(--text); background:var(--bg3); border:1px solid var(--border); border-radius:3px; padding:7px 10px; word-break:break-all; }
+    .drawer-score-bar { height:6px; background:var(--bg3); border-radius:3px; overflow:hidden; margin-top:6px; }
+    .drawer-score-fill { height:100%; border-radius:3px; transition:width .6s ease; }
+    #anomaly-chart { width:100%; height:90px; display:block; }
+    .empty { padding:30px; text-align:center; font-family:var(--mono); font-size:11px; color:var(--text3); }
+    ::-webkit-scrollbar { width:4px; height:4px; }
+    ::-webkit-scrollbar-track { background:transparent; }
+    ::-webkit-scrollbar-thumb { background:var(--green3); border-radius:2px; }
+    #conn-banner { position:fixed; bottom:16px; left:50%; transform:translateX(-50%); background:var(--bg2); border:1px solid var(--border2); border-radius:4px; padding:8px 18px; font-family:var(--mono); font-size:11px; color:var(--text2); z-index:500; display:none; }
+    #conn-banner.show { display:block; }
+    #conn-banner.err { border-color:var(--red); color:var(--red); }
+    .cursor { display:inline-block; width:7px; height:13px; background:var(--green); margin-left:2px; vertical-align:text-bottom; animation:blink 1s step-end infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
   </style>
 </head>
 <body>
 
-<!-- ── header ── -->
 <header>
   <div class="logo">
     <div class="logo-icon"></div>
@@ -772,10 +170,7 @@
   </div>
 </header>
 
-<!-- ── app ── -->
 <div class="app">
-
-  <!-- stat bar -->
   <div class="stat-bar">
     <div class="stat-card">
       <div class="stat-label">// total logs</div>
@@ -785,7 +180,7 @@
     <div class="stat-card">
       <div class="stat-label">// active alerts</div>
       <div class="stat-value red" id="stat-alerts">0</div>
-      <div class="stat-delta" id="stat-alerts-delta">last 60s</div>
+      <div class="stat-delta">last 60s</div>
     </div>
     <div class="stat-card">
       <div class="stat-label">// threat score</div>
@@ -804,13 +199,9 @@
     </div>
   </div>
 
-  <!-- main grid -->
   <div class="main-grid">
-
-    <!-- left col -->
     <div class="left-col">
 
-      <!-- log stream -->
       <div class="panel">
         <div class="panel-header">
           <div class="panel-title">Live Log Stream</div>
@@ -821,7 +212,6 @@
         </div>
       </div>
 
-      <!-- NLP token extraction -->
       <div class="panel">
         <div class="panel-header">
           <div class="panel-title">NLP Entity Extraction — Last Event</div>
@@ -832,7 +222,6 @@
         </div>
       </div>
 
-      <!-- model ensemble -->
       <div class="panel">
         <div class="panel-header">
           <div class="panel-title">Anomaly Model Ensemble</div>
@@ -858,8 +247,7 @@
             <div class="model-label">decision boundary</div>
           </div>
         </div>
-        <!-- anomaly sparkline -->
-        <div style="padding:10px 14px 12px; border-top: 1px solid var(--border);">
+        <div style="padding:10px 14px 12px;border-top:1px solid var(--border)">
           <div style="font-family:var(--mono);font-size:10px;color:var(--text3);margin-bottom:6px">// anomaly score over time</div>
           <svg id="anomaly-chart" viewBox="0 0 600 90" preserveAspectRatio="none"></svg>
         </div>
@@ -867,10 +255,7 @@
 
     </div>
 
-    <!-- right col -->
     <div class="right-col">
-
-      <!-- alert feed -->
       <div class="panel" style="flex:1">
         <div class="panel-header">
           <div class="panel-title">Threat Alerts</div>
@@ -881,7 +266,6 @@
         </div>
       </div>
 
-      <!-- mitre ATT&CK -->
       <div class="panel">
         <div class="panel-header">
           <div class="panel-title">MITRE ATT&CK</div>
@@ -891,11 +275,9 @@
           <div class="empty">No tactics detected</div>
         </div>
       </div>
-
     </div>
   </div>
 
-  <!-- bottom: graph -->
   <div class="panel">
     <div class="panel-header">
       <div class="panel-title">Knowledge Graph — Entity Relationship Network</div>
@@ -910,64 +292,58 @@
     </div>
     <svg id="graph-svg"></svg>
   </div>
-
 </div>
 
-<!-- detail drawer -->
 <div id="detail-drawer">
   <button class="drawer-close" onclick="closeDrawer()">[ CLOSE ]</button>
   <div class="drawer-title">// ALERT DETAIL</div>
   <div id="drawer-content"></div>
 </div>
 
-<!-- connection banner -->
 <div id="conn-banner"></div>
 
 <script>
-// ──────────────────────────────────────────────
-//  STATE
-// ──────────────────────────────────────────────
+// ── STATE ────────────────────────────────────────────────────────────────────
 const state = {
-  alerts: [],
-  graphNodes: [],
-  graphLinks: [],
-  anomalyHistory: [],
-  mitreSummary: {},
-  totalLogs: 0,
-  connected: false
+  alerts: [], graphNodes: [], graphLinks: [],
+  anomalyHistory: [], mitreSummary: {}, totalLogs: 0, connected: false
 };
 
-// ──────────────────────────────────────────────
-//  CLOCK
-// ──────────────────────────────────────────────
+// ── CLOCK ────────────────────────────────────────────────────────────────────
 function tickClock() {
-  const now = new Date();
   document.getElementById('clock').textContent =
-    now.toUTCString().slice(17, 25) + ' UTC';
+    new Date().toUTCString().slice(17,25) + ' UTC';
 }
-setInterval(tickClock, 1000);
-tickClock();
+setInterval(tickClock, 1000); tickClock();
 
-// ──────────────────────────────────────────────
-//  SOCKET.IO — connects to your Flask backend
-// ──────────────────────────────────────────────
-const socket = io('http://localhost:5000', {
-  transports: ['websocket'],
-  reconnectionDelay: 1500,
-  reconnectionAttempts: 10
-});
+// ── SAFE TIMESTAMP ───────────────────────────────────────────────────────────
+// ✅ FIX 1: timestamps in your data are empty strings — use current time instead
+function safeTime(ts) {
+  if (!ts || ts === '') return new Date().toLocaleTimeString();
+  const d = new Date(ts);
+  return isNaN(d.getTime()) ? new Date().toLocaleTimeString() : d.toLocaleTimeString();
+}
+function safeTimeISO(ts) {
+  if (!ts || ts === '') return new Date().toISOString().slice(11,19);
+  const d = new Date(ts);
+  return isNaN(d.getTime()) ? new Date().toISOString().slice(11,19) : d.toISOString().slice(11,19);
+}
+
+// ── SOCKET.IO ────────────────────────────────────────────────────────────────
+const socket = io({ transports: ['websocket','polling'], reconnectionDelay: 1500, reconnectionAttempts: 20 });
 
 function showBanner(msg, isErr) {
   const b = document.getElementById('conn-banner');
   b.textContent = msg;
   b.className = 'show' + (isErr ? ' err' : '');
   clearTimeout(b._t);
-  b._t = setTimeout(() => b.className = '', 3000);
+  b._t = setTimeout(() => b.className = '', 3500);
 }
 
 socket.on('connect', () => {
   state.connected = true;
   document.getElementById('status-dot').style.background = 'var(--green)';
+  document.getElementById('status-dot').style.boxShadow = '0 0 8px var(--green)';
   document.getElementById('status-text').textContent = 'ONLINE';
   showBanner('// connected to threat pipeline');
   fetchInitialState();
@@ -976,20 +352,19 @@ socket.on('connect', () => {
 socket.on('disconnect', () => {
   state.connected = false;
   document.getElementById('status-dot').style.background = 'var(--red)';
-  document.getElementById('status-text').textContent = 'OFFLINE';
-  showBanner('// connection lost — reconnecting', true);
+  document.getElementById('status-dot').style.boxShadow = '0 0 8px var(--red)';
+  document.getElementById('status-text').textContent = 'RECONNECTING...';
+  showBanner('// connection lost — reconnecting...', true);
+  // ✅ FIX 2: DO NOT call loadDemoData on disconnect — just show reconnecting
 });
 
 socket.on('connect_error', () => {
-  showBanner('// cannot reach backend (localhost:5000)', true);
-  // load demo data so the UI still shows something
-  loadDemoData();
+  if (!state.connected && !state.alerts.length) {
+    showBanner('// cannot reach backend — retrying...', true);
+  }
 });
 
-// ──────────────────────────────────────────────
-//  RECEIVE EVENTS FROM YOUR BACKEND
-//  (matches broadcast_alert / broadcast_graph_update in events.py)
-// ──────────────────────────────────────────────
+// ── WEBSOCKET EVENTS ─────────────────────────────────────────────────────────
 socket.on('new_alert', (alert) => {
   state.alerts.unshift(alert);
   if (state.alerts.length > 200) state.alerts.pop();
@@ -1013,12 +388,9 @@ socket.on('graph_update', (graphData) => {
 socket.on('metrics_update', (metrics) => {
   if (!metrics) return;
   const ind = metrics.individual || {};
-  const ifo = ind.isolation_forest || {};
-  const ae  = ind.autoencoder || {};
-  const svm = ind.one_class_svm || {};
-  setModel('if',  ifo.f1_score || 0.83);
-  setModel('ae',  ae.f1_score  || 0.87);
-  setModel('svm', svm.f1_score || 0.79);
+  setModel('if',  (ind.isolation_forest || {}).f1_score || 0.83);
+  setModel('ae',  (ind.autoencoder      || {}).f1_score || 0.87);
+  setModel('svm', (ind.one_class_svm    || {}).f1_score || 0.79);
   document.getElementById('stat-f1').textContent =
     ((metrics.ensemble || {}).f1_score || 0.93).toFixed(2);
 });
@@ -1028,128 +400,74 @@ socket.on('mitre_update', (summary) => {
   renderMitre();
 });
 
-// ──────────────────────────────────────────────
-//  FETCH INITIAL STATE FROM /api/state
-// ──────────────────────────────────────────────
+socket.on('anomaly_series', (payload) => {
+  const series = payload.data || [];
+  series.forEach(v => updateAnomalyChart(v, false));
+  renderAnomalyChart();
+});
+
+// ── FETCH INITIAL STATE ───────────────────────────────────────────────────────
 function fetchInitialState() {
   fetch('/api/state')
     .then(r => r.json())
     .then(data => {
-      state.totalLogs = data.total_logs_processed || 0;
-      state.alerts = data.alerts || [];
-      state.mitreSummary = data.mitre_summary || {};
-      state.graphNodes = (data.graph_data || {}).nodes || [];
-      state.graphLinks = (data.graph_data || {}).links || [];
+      state.totalLogs   = data.total_logs_processed || 0;
+      state.alerts      = data.alerts || [];
+      state.mitreSummary= data.mitre_summary || {};
+      state.graphNodes  = (data.graph_data || {}).nodes || [];
+      state.graphLinks  = (data.graph_data || {}).links || [];
 
-      // render existing alerts
+      // render alerts
       const feed = document.getElementById('alert-feed');
       feed.innerHTML = '';
-      state.alerts.slice(0, 20).forEach(a => renderAlert(a, false));
+      state.alerts.slice(0,20).forEach(a => renderAlert(a, false));
+
+      // seed log stream from initial alerts
+      const logStream = document.getElementById('log-stream');
+      logStream.innerHTML = '';
+      state.alerts.slice(0,15).reverse().forEach(a => pushLogLine(a));
+
+      // render NLP for first alert
+      if (state.alerts.length) renderNLPTokens(state.alerts[0]);
 
       renderMitre();
       renderGraph();
       updateStats();
+      updateThreatLevel();
 
-      // metrics
-      const m = data.metrics || {};
+      const m   = data.metrics || {};
       const ind = m.individual || {};
       setModel('if',  (ind.isolation_forest || {}).f1_score || 0.83);
-      setModel('ae',  (ind.autoencoder       || {}).f1_score || 0.87);
-      setModel('svm', (ind.one_class_svm     || {}).f1_score || 0.79);
+      setModel('ae',  (ind.autoencoder      || {}).f1_score || 0.87);
+      setModel('svm', (ind.one_class_svm    || {}).f1_score || 0.79);
+
+      // seed anomaly chart from anomaly_series
+      const series = data.anomaly_series || [];
+      series.forEach(v => updateAnomalyChart(v, false));
+      if (!series.length) state.alerts.slice(0,30).forEach(a => updateAnomalyChart(a.threat_score, false));
+      renderAnomalyChart();
     })
-    .catch(() => loadDemoData());
+    .catch(err => {
+      console.warn('fetchInitialState failed:', err);
+      showBanner('// failed to load state from backend', true);
+    });
 }
 
-// ──────────────────────────────────────────────
-//  DEMO DATA (shown when backend is offline)
-// ──────────────────────────────────────────────
-function loadDemoData() {
-  const demoAlerts = [
-    { id:'d1', timestamp:'2024-01-15T02:14:37Z', source_ip:'192.168.1.105', dest_ip:'10.0.0.1',
-      threat_score:0.97, severity:'critical', attack_type:'brute_force',
-      explanation:'48 failed auth attempts followed by successful login within 3 min',
-      mitre:{ tactic:'Credential Access', technique_id:'T1110', technique_name:'Brute Force' } },
-    { id:'d2', timestamp:'2024-01-15T02:14:42Z', source_ip:'192.168.1.105', dest_ip:'10.0.0.1',
-      threat_score:0.94, severity:'critical', attack_type:'privilege_escalation',
-      explanation:'Role escalated from admin to superadmin 2 min post-login',
-      mitre:{ tactic:'Privilege Escalation', technique_id:'T1548', technique_name:'Abuse Elevation Control' } },
-    { id:'d3', timestamp:'2024-01-15T02:14:38Z', source_ip:'192.168.1.105', dest_ip:'10.0.0.1',
-      threat_score:0.87, severity:'high', attack_type:'path_traversal',
-      explanation:'GET /etc/passwd — blocked by WAF, recon behaviour',
-      mitre:{ tactic:'Discovery', technique_id:'T1083', technique_name:'File and Directory Discovery' } },
-    { id:'d4', timestamp:'2024-01-15T02:15:09Z', source_ip:'185.220.101.47', dest_ip:'10.0.0.1',
-      threat_score:0.91, severity:'critical', attack_type:'lateral_movement',
-      explanation:'SSH public key accepted from Tor exit node (AbuseIPDB score 97)',
-      mitre:{ tactic:'Lateral Movement', technique_id:'T1021', technique_name:'Remote Services' } },
-    { id:'d5', timestamp:'2024-01-15T02:15:20Z', source_ip:'10.40.2.33', dest_ip:'10.0.0.8',
-      threat_score:0.62, severity:'medium', attack_type:'port_scan',
-      explanation:'Sequential port sweep across /24 subnet, 340 ports in 12s',
-      mitre:{ tactic:'Reconnaissance', technique_id:'T1046', technique_name:'Network Service Discovery' } },
-  ];
-
-  const demoGraph = {
-    nodes: [
-      { id:'192.168.1.105', group:2, suspicion:0.97 },
-      { id:'185.220.101.47', group:2, suspicion:0.91 },
-      { id:'10.0.0.1', group:1, suspicion:0.3 },
-      { id:'10.0.0.8', group:1, suspicion:0.1 },
-      { id:'10.40.2.33', group:2, suspicion:0.62 },
-    ],
-    links: [
-      { source:'192.168.1.105', target:'10.0.0.1', value:3, attack_type:'brute_force' },
-      { source:'185.220.101.47', target:'10.0.0.1', value:2, attack_type:'lateral_movement' },
-      { source:'10.40.2.33', target:'10.0.0.8', value:1, attack_type:'port_scan' },
-    ]
-  };
-
-  state.alerts = demoAlerts;
-  state.totalLogs = 14832;
-  state.graphNodes = demoGraph.nodes;
-  state.graphLinks = demoGraph.links;
-  state.mitreSummary = {
-    'Credential Access':   { count:52, techniques:[] },
-    'Privilege Escalation':{ count:14, techniques:[] },
-    'Lateral Movement':    { count:9,  techniques:[] },
-    'Discovery':           { count:31, techniques:[] },
-    'Reconnaissance':      { count:18, techniques:[] },
-  };
-
-  const feed = document.getElementById('alert-feed');
-  feed.innerHTML = '';
-  demoAlerts.forEach(a => renderAlert(a, false));
-  renderMitre();
-  renderGraph();
-  updateStats();
-
-  // seed anomaly chart
-  for (let i = 0; i < 30; i++) {
-    const v = i > 18 && i < 26 ? 0.7 + Math.random()*0.28 : Math.random()*0.25;
-    updateAnomalyChart(v, false);
-  }
-  renderAnomalyChart();
-
-  // seed log lines
-  demoAlerts.forEach(a => pushLogLine(a));
-
-  // render NLP for first
-  renderNLPTokens(demoAlerts[0]);
-
-  showBanner('// demo mode — backend offline');
-}
-
-// ──────────────────────────────────────────────
-//  RENDER — Alert card
-// ──────────────────────────────────────────────
+// ── RENDER: Alert card ────────────────────────────────────────────────────────
 function renderAlert(alert, prepend) {
   const feed = document.getElementById('alert-feed');
-  // clear empty state
   if (feed.querySelector('.empty')) feed.innerHTML = '';
 
-  const sev = alert.severity || 'low';
+  const sev   = alert.severity || 'low';
   const score = parseFloat(alert.threat_score || 0);
-  const ts = new Date(alert.timestamp).toLocaleTimeString();
-  const atk = (alert.attack_type || 'unknown').replace(/_/g,' ').toUpperCase();
+  // ✅ FIX 1: safe timestamp
+  const ts    = safeTime(alert.timestamp);
+  const atk   = (alert.attack_type || 'unknown').replace(/_/g,' ').toUpperCase();
   const mitre = alert.mitre || {};
+
+  // ✅ FIX 3: show attack_type as source label when IPs are empty
+  const srcLabel = alert.source_ip || alert.attack_type || 'UNKNOWN';
+  const dstLabel = alert.dest_ip   || (mitre.tactic || 'TARGET');
 
   const div = document.createElement('div');
   div.className = `alert-item ${sev}`;
@@ -1160,59 +478,98 @@ function renderAlert(alert, prepend) {
       <div class="alert-time">${ts}</div>
     </div>
     <div class="alert-body">${alert.explanation || 'No explanation provided'}</div>
-    <div class="alert-ips" style="margin-top:6px;flex-wrap:wrap;gap:5px">
-      <span class="ip-tag">${alert.source_ip}</span>
+    <div class="alert-ips">
+      <span class="ip-tag">${srcLabel}</span>
       <span style="font-family:var(--mono);font-size:10px;color:var(--text3)">→</span>
-      <span class="ip-tag">${alert.dest_ip}</span>
+      <span class="ip-tag">${dstLabel}</span>
       ${mitre.technique_id ? `<span class="mitre-tag">${mitre.technique_id}</span>` : ''}
-      <span class="threat-score-pill" style="background:${scoreColor(score,true)};border:1px solid ${scoreColor(score)};color:${scoreColor(score)};font-family:var(--mono);font-size:10px;padding:2px 7px;border-radius:2px;margin-left:auto">
+      <span class="threat-score-pill" style="background:${scoreColor(score,true)};border:1px solid ${scoreColor(score)};color:${scoreColor(score)}">
         ${score.toFixed(2)}
       </span>
     </div>
   `;
   div.addEventListener('click', () => openDrawer(alert));
 
-  if (prepend) {
-    feed.insertBefore(div, feed.firstChild);
-  } else {
-    feed.appendChild(div);
-  }
+  if (prepend) feed.insertBefore(div, feed.firstChild);
+  else         feed.appendChild(div);
 
-  document.getElementById('alert-count-badge').textContent =
-    state.alerts.length + ' ACTIVE';
+  document.getElementById('alert-count-badge').textContent = state.alerts.length + ' ACTIVE';
 }
 
 function scoreColor(score, bg) {
-  if (score >= 0.9) return bg ? 'rgba(255,51,85,0.12)' : 'var(--red)';
-  if (score >= 0.7) return bg ? 'rgba(255,170,0,0.12)' : 'var(--amber)';
+  if (score >= 0.9) return bg ? 'rgba(255,51,85,0.12)'  : 'var(--red)';
+  if (score >= 0.7) return bg ? 'rgba(255,170,0,0.12)'  : 'var(--amber)';
   if (score >= 0.5) return bg ? 'rgba(0,170,255,0.12)'  : 'var(--blue)';
   return bg ? 'rgba(0,255,136,0.08)' : 'var(--green2)';
 }
 
-// ──────────────────────────────────────────────
-//  RENDER — NLP tokens
-// ──────────────────────────────────────────────
+// ── RENDER: Log stream ────────────────────────────────────────────────────────
+function pushLogLine(alert) {
+  const stream = document.getElementById('log-stream');
+  if (stream.querySelector('.empty')) stream.innerHTML = '';
+
+  const sev   = alert.severity || 'normal';
+  const score = parseFloat(alert.threat_score || 0);
+  // ✅ FIX 1: safe ISO time — no crash on empty timestamp
+  const ts    = safeTimeISO(alert.timestamp);
+  const atk   = (alert.attack_type || 'normal').replace(/_/g,' ');
+  const mitre = alert.mitre || {};
+
+  // ✅ FIX 3: use attack_type + tactic instead of empty IPs
+  const srcLabel = alert.source_ip || alert.attack_type  || 'SRC';
+  const dstLabel = alert.dest_ip   || mitre.tactic        || 'DST';
+
+  let scoreClass = 'score-low';
+  if      (score >= 0.9) scoreClass = 'score-crit';
+  else if (score >= 0.7) scoreClass = 'score-high';
+  else if (score >= 0.5) scoreClass = 'score-med';
+
+  const div = document.createElement('div');
+  div.className = `log-entry ${sev}`;
+  div.innerHTML = `
+    <span class="log-ts">[${ts}]</span>
+    <span class="log-ip">${srcLabel}</span>
+    <span class="log-msg">${atk} → ${dstLabel}</span>
+    <span class="log-score ${scoreClass}">${score.toFixed(2)}</span>
+  `;
+
+  stream.insertBefore(div, stream.firstChild);
+  while (stream.children.length > 80) stream.removeChild(stream.lastChild);
+}
+
+// ── RENDER: NLP tokens ────────────────────────────────────────────────────────
 function renderNLPTokens(alert) {
   const strip = document.getElementById('token-strip');
   strip.innerHTML = '';
-
+  const mitre  = alert.mitre || {};
   const tokens = [];
-  if (alert.source_ip) tokens.push({ label: alert.source_ip, cls: 'tok-ip', cat: 'IP' });
-  if (alert.dest_ip)   tokens.push({ label: alert.dest_ip,   cls: 'tok-ip', cat: 'IP' });
 
-  // derive tokens from attack type
-  const atk = alert.attack_type || '';
-  if (atk.includes('brute'))       tokens.push({ label: 'brute_force_pattern', cls: 'tok-threat', cat: 'THREAT' });
-  if (atk.includes('privilege'))   tokens.push({ label: 'privilege_escalation', cls: 'tok-threat', cat: 'THREAT' });
-  if (atk.includes('path'))        tokens.push({ label: '/etc/passwd', cls: 'tok-file', cat: 'FILE' });
-  if (atk.includes('lateral'))     tokens.push({ label: 'ssh_pivot', cls: 'tok-action', cat: 'ACTION' });
-  if (atk.includes('scan'))        tokens.push({ label: 'port_sweep', cls: 'tok-action', cat: 'ACTION' });
+  // ✅ FIX 3: only show IP tokens when IPs are real
+  if (alert.source_ip && alert.source_ip.trim())
+    tokens.push({ label: alert.source_ip, cls: 'tok-ip', cat: 'SRC-IP' });
+  if (alert.dest_ip && alert.dest_ip.trim())
+    tokens.push({ label: alert.dest_ip, cls: 'tok-ip', cat: 'DST-IP' });
 
-  if (alert.mitre && alert.mitre.tactic) {
-    tokens.push({ label: alert.mitre.tactic.replace(/ /g,'_').toLowerCase(), cls: 'tok-action', cat: 'TACTIC' });
+  // always show attack type
+  if (alert.attack_type)
+    tokens.push({ label: alert.attack_type.replace(/_/g,' '), cls: 'tok-threat', cat: 'ATTACK' });
+
+  // MITRE tokens
+  if (mitre.tactic)
+    tokens.push({ label: mitre.tactic.replace(/ /g,'_').toLowerCase(), cls: 'tok-action', cat: 'TACTIC' });
+  if (mitre.technique_id)
+    tokens.push({ label: mitre.technique_id, cls: 'tok-user', cat: 'TECHNIQUE' });
+
+  // log text keywords
+  if (alert.log_text) {
+    alert.log_text.split(' ').slice(0,6).forEach(w => {
+      if (w.length > 3)
+        tokens.push({ label: w, cls: 'tok-file', cat: 'LOG' });
+    });
   }
 
-  tokens.push({ label: 'severity:' + (alert.severity||'low'), cls: 'tok-threat', cat: 'SEV' });
+  tokens.push({ label: 'severity:' + (alert.severity || 'low'), cls: 'tok-threat', cat: 'SEV' });
+  tokens.push({ label: 'score:' + parseFloat(alert.threat_score||0).toFixed(2), cls: 'tok-action', cat: 'SCORE' });
 
   tokens.forEach((t, i) => {
     const span = document.createElement('span');
@@ -1224,70 +581,32 @@ function renderNLPTokens(alert) {
   });
 }
 
-// ──────────────────────────────────────────────
-//  RENDER — Log line
-// ──────────────────────────────────────────────
-function pushLogLine(alert) {
-  const stream = document.getElementById('log-stream');
-  if (stream.querySelector('.empty')) stream.innerHTML = '';
-
-  const sev = alert.severity || 'normal';
-  const ts = new Date(alert.timestamp).toISOString().slice(11,19);
-  const atk = (alert.attack_type||'normal').replace(/_/g,' ');
-  const score = parseFloat(alert.threat_score||0);
-
-  let scoreClass = 'score-low';
-  if (score >= 0.9) scoreClass = 'score-crit';
-  else if (score >= 0.7) scoreClass = 'score-high';
-  else if (score >= 0.5) scoreClass = 'score-med';
-
-  const div = document.createElement('div');
-  div.className = `log-entry ${sev}`;
-  div.innerHTML = `
-    <span class="log-ts">[${ts}]</span>
-    <span class="log-ip">${alert.source_ip}</span>
-    <span class="log-msg">${atk} → ${alert.dest_ip}</span>
-    <span class="log-score ${scoreClass}">${score.toFixed(2)}</span>
-  `;
-
-  stream.insertBefore(div, stream.firstChild);
-
-  // keep max 80 lines
-  while (stream.children.length > 80) stream.removeChild(stream.lastChild);
-}
-
-// ──────────────────────────────────────────────
-//  RENDER — Anomaly sparkline
-// ──────────────────────────────────────────────
+// ── RENDER: Anomaly chart ─────────────────────────────────────────────────────
 function updateAnomalyChart(score, render=true) {
-  state.anomalyHistory.push(score);
+  state.anomalyHistory.push(parseFloat(score) || 0);
   if (state.anomalyHistory.length > 60) state.anomalyHistory.shift();
   if (render) renderAnomalyChart();
 }
 
 function renderAnomalyChart() {
-  const svg = document.getElementById('anomaly-chart');
-  const W = 600, H = 90, pad = 10;
+  const svg  = document.getElementById('anomaly-chart');
+  const W=600, H=90, pad=10;
   const data = state.anomalyHistory;
   if (data.length < 2) return;
 
-  const xScale = i => pad + (i / (data.length - 1)) * (W - pad*2);
+  const xScale = i => pad + (i / (data.length-1)) * (W - pad*2);
   const yScale = v => H - pad - v * (H - pad*2);
+  const ty     = yScale(0.6);
 
-  // threshold line
-  const ty = yScale(0.6);
-
-  let pathD = data.map((v,i) => `${i===0?'M':'L'}${xScale(i).toFixed(1)},${yScale(v).toFixed(1)}`).join(' ');
-
-  // area fill
-  let areaD = `M${xScale(0)},${H-pad} ` + data.map((v,i) =>
-    `L${xScale(i).toFixed(1)},${yScale(v).toFixed(1)}`).join(' ') +
+  const pathD = data.map((v,i) => `${i===0?'M':'L'}${xScale(i).toFixed(1)},${yScale(v).toFixed(1)}`).join(' ');
+  const areaD = `M${xScale(0)},${H-pad} ` +
+    data.map((v,i)=>`L${xScale(i).toFixed(1)},${yScale(v).toFixed(1)}`).join(' ') +
     ` L${xScale(data.length-1)},${H-pad} Z`;
 
   svg.innerHTML = `
     <defs>
       <linearGradient id="ag" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%"   stop-color="#00ff88" stop-opacity="0.25"/>
+        <stop offset="0%" stop-color="#00ff88" stop-opacity="0.25"/>
         <stop offset="100%" stop-color="#00ff88" stop-opacity="0"/>
       </linearGradient>
     </defs>
@@ -1298,149 +617,143 @@ function renderAnomalyChart() {
     <path d="${areaD}" fill="url(#ag)"/>
     <path d="${pathD}" fill="none" stroke="#00ff88" stroke-width="1.5"/>
     ${data.map((v,i) => v >= 0.6 ?
-      `<circle cx="${xScale(i).toFixed(1)}" cy="${yScale(v).toFixed(1)}" r="3"
-               fill="#ff3355" opacity="0.8"/>` : '').join('')}
+      `<circle cx="${xScale(i).toFixed(1)}" cy="${yScale(v).toFixed(1)}" r="3" fill="#ff3355" opacity="0.8"/>` : '').join('')}
   `;
 }
 
-// ──────────────────────────────────────────────
-//  RENDER — MITRE ATT&CK
-// ──────────────────────────────────────────────
+// ── RENDER: MITRE ATT&CK ──────────────────────────────────────────────────────
 function renderMitre() {
-  const list = document.getElementById('mitre-list');
+  const list    = document.getElementById('mitre-list');
   const summary = state.mitreSummary;
-  const keys = Object.keys(summary);
+  const keys    = Object.keys(summary);
   if (!keys.length) { list.innerHTML = '<div class="empty">No tactics detected</div>'; return; }
 
-  const maxCount = Math.max(...keys.map(k => summary[k].count));
-  list.innerHTML = '';
+  const maxCount = Math.max(...keys.map(k => summary[k].count || summary[k]));
+  list.innerHTML  = '';
 
-  keys.sort((a,b) => summary[b].count - summary[a].count).forEach(tactic => {
-    const { count } = summary[tactic];
-    const pct = Math.round((count / maxCount) * 100);
-    const row = document.createElement('div');
-    row.className = 'mitre-row';
-    row.innerHTML = `
-      <div class="mitre-tactic">${tactic}</div>
-      <div class="mitre-bar-wrap"><div class="mitre-bar-fill" style="width:${pct}%"></div></div>
-      <div class="mitre-count">${count}</div>
-    `;
-    list.appendChild(row);
-  });
+  keys.sort((a,b) => (summary[b].count||summary[b]) - (summary[a].count||summary[a]))
+      .forEach(tactic => {
+        const count = summary[tactic].count || summary[tactic] || 0;
+        const pct   = Math.round((count / maxCount) * 100);
+        const row   = document.createElement('div');
+        row.className = 'mitre-row';
+        row.innerHTML = `
+          <div class="mitre-tactic">${tactic}</div>
+          <div class="mitre-bar-wrap"><div class="mitre-bar-fill" style="width:${pct}%"></div></div>
+          <div class="mitre-count">${count}</div>
+        `;
+        list.appendChild(row);
+      });
 }
 
-// ──────────────────────────────────────────────
-//  RENDER — D3 Force Graph
-// ──────────────────────────────────────────────
+// ── RENDER: D3 Force Graph ────────────────────────────────────────────────────
 let simulation = null;
 
 function renderGraph() {
-  const svg = d3.select('#graph-svg');
-  const W = document.getElementById('graph-svg').clientWidth || 800;
-  const H = 300;
+  const svgEl = document.getElementById('graph-svg');
+  const svg   = d3.select('#graph-svg');
+  const W     = svgEl.clientWidth  || 800;
+  const H     = 300;
 
   svg.selectAll('*').remove();
   svg.attr('viewBox', `0 0 ${W} ${H}`);
 
-  const nodes = state.graphNodes.map(d => ({ ...d }));
-  const links = state.graphLinks.map(d => ({ ...d }));
+  const nodes = state.graphNodes.map(d => ({...d}));
+  const links = state.graphLinks.map(d => ({...d}));
 
-  if (!nodes.length) return;
+  if (!nodes.length) {
+    svg.append('text')
+      .attr('x', W/2).attr('y', H/2)
+      .attr('text-anchor','middle')
+      .attr('font-family',"'Share Tech Mono',monospace")
+      .attr('font-size', 12)
+      .attr('fill','#2a5a3a')
+      .text('// awaiting graph data');
+    return;
+  }
 
   if (simulation) simulation.stop();
 
   simulation = d3.forceSimulation(nodes)
-    .force('link', d3.forceLink(links).id(d => d.id).distance(90))
-    .force('charge', d3.forceManyBody().strength(-180))
-    .force('center', d3.forceCenter(W/2, H/2))
-    .force('collision', d3.forceCollide(22));
+    .force('link',      d3.forceLink(links).id(d => d.id).distance(100))
+    .force('charge',    d3.forceManyBody().strength(-220))
+    .force('center',    d3.forceCenter(W/2, H/2))
+    .force('collision', d3.forceCollide(24));
 
-  // defs: arrow marker
   svg.append('defs').append('marker')
-    .attr('id', 'garrow')
-    .attr('viewBox', '0 0 10 10')
-    .attr('refX', 18).attr('refY', 5)
-    .attr('markerWidth', 5).attr('markerHeight', 5)
-    .attr('orient', 'auto')
-    .append('path')
-    .attr('d', 'M2 1L8 5L2 9')
-    .attr('fill', 'none')
-    .attr('stroke', '#1a3a2a')
-    .attr('stroke-width', 1.5);
+    .attr('id','garrow').attr('viewBox','0 0 10 10')
+    .attr('refX',18).attr('refY',5)
+    .attr('markerWidth',5).attr('markerHeight',5)
+    .attr('orient','auto')
+    .append('path').attr('d','M2 1L8 5L2 9')
+    .attr('fill','none').attr('stroke','#1a3a2a').attr('stroke-width',1.5);
+
+  // link color by group
+  const linkColor = d => {
+    const atk = (d.attack || d.attack_type || '').toLowerCase();
+    if (atk.includes('ddos') || atk.includes('dos'))   return '#ff3355';
+    if (atk.includes('scan') || atk.includes('port'))  return '#ffaa00';
+    if (atk.includes('brute') || atk.includes('web'))  return '#cc44ff';
+    return '#1a3a2a';
+  };
 
   const link = svg.append('g').selectAll('line')
     .data(links).enter().append('line')
-    .attr('class', 'graph-link')
-    .attr('stroke', d => {
-      const t = d.attack_type || '';
-      if (t.includes('brute') || t.includes('lateral')) return '#ff3355';
-      if (t.includes('priv') || t.includes('scan')) return '#ffaa00';
-      return '#1a3a2a';
-    })
-    .attr('stroke-width', d => 1 + (d.value||1)*0.5)
-    .attr('marker-end', 'url(#garrow)');
+    .attr('class','graph-link')
+    .attr('stroke', linkColor)
+    .attr('stroke-width', d => 1 + (d.value||0.5)*1.5)
+    .attr('marker-end','url(#garrow)');
+
+  // node color/stroke by group: 0=pivot(amber), 1=attacker(red), 2=target(blue)
+  const nodeStroke = d => d.group===0 ? '#ffaa00' : d.group===1 ? '#ff3355' : '#00aaff';
+  const nodeFill   = d => d.group===0
+    ? 'rgba(255,170,0,0.15)'
+    : d.group===1 && (d.suspicion||0)>=0.8
+      ? 'rgba(255,51,85,0.25)'
+      : d.group===1
+        ? 'rgba(255,51,85,0.15)'
+        : 'rgba(0,170,255,0.15)';
 
   const node = svg.append('g').selectAll('g')
     .data(nodes).enter().append('g')
-    .attr('class', 'graph-node')
+    .attr('class','graph-node')
     .call(d3.drag()
-      .on('start', (event, d) => {
-        if (!event.active) simulation.alphaTarget(0.3).restart();
-        d.fx = d.x; d.fy = d.y;
-      })
-      .on('drag', (event, d) => { d.fx = event.x; d.fy = event.y; })
-      .on('end', (event, d) => {
-        if (!event.active) simulation.alphaTarget(0);
-        d.fx = null; d.fy = null;
-      })
+      .on('start', (ev,d)=>{ if(!ev.active) simulation.alphaTarget(0.3).restart(); d.fx=d.x; d.fy=d.y; })
+      .on('drag',  (ev,d)=>{ d.fx=ev.x; d.fy=ev.y; })
+      .on('end',   (ev,d)=>{ if(!ev.active) simulation.alphaTarget(0); d.fx=null; d.fy=null; })
     );
 
   node.append('circle')
-    .attr('r', d => 6 + (d.suspicion||0.1)*8)
-    .attr('fill', d => {
-      const s = d.suspicion || 0;
-      if (d.group === 2 && s >= 0.8) return 'rgba(255,51,85,0.25)';
-      if (d.group === 2) return 'rgba(255,170,0,0.2)';
-      return 'rgba(0,170,255,0.15)';
-    })
-    .attr('stroke', d => {
-      if (d.group === 2 && (d.suspicion||0) >= 0.8) return '#ff3355';
-      if (d.group === 2) return '#ffaa00';
-      return '#00aaff';
-    })
+    .attr('r',     d => 6 + (d.suspicion||0.1)*9)
+    .attr('fill',   nodeFill)
+    .attr('stroke', nodeStroke)
     .attr('stroke-width', 1.5);
 
   node.append('text')
-    .attr('class', 'node-label')
-    .attr('text-anchor', 'middle')
-    .attr('dy', d => -(6 + (d.suspicion||0.1)*8 + 4))
-    .text(d => d.id);
+    .attr('class','node-label')
+    .attr('text-anchor','middle')
+    .attr('dy', d => -(6 + (d.suspicion||0.1)*9 + 5))
+    .text(d => (d.label || d.id || '').split('\n')[0].slice(0,18));
 
   simulation.on('tick', () => {
-    link
-      .attr('x1', d => d.source.x).attr('y1', d => d.source.y)
-      .attr('x2', d => d.target.x).attr('y2', d => d.target.y);
-    node.attr('transform', d => `translate(${d.x},${d.y})`);
+    link.attr('x1',d=>d.source.x).attr('y1',d=>d.source.y)
+        .attr('x2',d=>d.target.x).attr('y2',d=>d.target.y);
+    node.attr('transform',d=>`translate(${d.x},${d.y})`);
   });
 }
 
-// ──────────────────────────────────────────────
-//  HELPERS
-// ──────────────────────────────────────────────
+// ── HELPERS ───────────────────────────────────────────────────────────────────
 function setModel(key, val) {
   const v = parseFloat(val) || 0;
   document.getElementById(`m-${key}`).textContent = v.toFixed(2);
-  document.getElementById(`b-${key}`).style.width = (v*100) + '%';
+  document.getElementById(`b-${key}`).style.width  = (v*100) + '%';
 }
 
 function updateStats() {
-  document.getElementById('stat-logs').textContent =
-    state.totalLogs.toLocaleString();
+  document.getElementById('stat-logs').textContent   = state.totalLogs.toLocaleString();
   document.getElementById('stat-alerts').textContent = state.alerts.length;
-
   const avgScore = state.alerts.length
-    ? (state.alerts.slice(0,20).reduce((s,a)=>s+parseFloat(a.threat_score||0),0) /
-       Math.min(state.alerts.length,20))
+    ? state.alerts.slice(0,20).reduce((s,a)=>s+parseFloat(a.threat_score||0),0) / Math.min(state.alerts.length,20)
     : 0;
   document.getElementById('stat-score').textContent = avgScore.toFixed(2);
   document.getElementById('stat-nodes').textContent = state.graphNodes.length;
@@ -1449,62 +762,37 @@ function updateStats() {
 
 function updateThreatLevel() {
   const scores = state.alerts.slice(0,5).map(a=>parseFloat(a.threat_score||0));
-  const max = scores.length ? Math.max(...scores) : 0;
-  const el = document.getElementById('threat-level');
-  if (max >= 0.9) { el.textContent = 'THREAT: CRITICAL'; el.style.color = 'var(--red)'; el.style.borderColor = 'var(--red)'; }
-  else if (max >= 0.7) { el.textContent = 'THREAT: HIGH'; el.style.color = 'var(--amber)'; el.style.borderColor = 'var(--amber)'; }
-  else if (max >= 0.5) { el.textContent = 'THREAT: MEDIUM'; el.style.color = 'var(--blue)'; el.style.borderColor = 'var(--blue)'; }
-  else { el.textContent = 'THREAT: LOW'; el.style.color = 'var(--green2)'; el.style.borderColor = 'var(--green2)'; }
+  const max    = scores.length ? Math.max(...scores) : 0;
+  const el     = document.getElementById('threat-level');
+  if      (max >= 0.9) { el.textContent='THREAT: CRITICAL'; el.style.color=el.style.borderColor='var(--red)'; }
+  else if (max >= 0.7) { el.textContent='THREAT: HIGH';     el.style.color=el.style.borderColor='var(--amber)'; }
+  else if (max >= 0.5) { el.textContent='THREAT: MEDIUM';   el.style.color=el.style.borderColor='var(--blue)'; }
+  else                 { el.textContent='THREAT: LOW';      el.style.color=el.style.borderColor='var(--green2)'; }
 }
 
-// ──────────────────────────────────────────────
-//  DETAIL DRAWER
-// ──────────────────────────────────────────────
+// ── DETAIL DRAWER ─────────────────────────────────────────────────────────────
 function openDrawer(alert) {
   const score = parseFloat(alert.threat_score||0);
   const mitre = alert.mitre || {};
-  const fillColor = score>=0.9 ? '#ff3355' : score>=0.7 ? '#ffaa00' : '#00aaff';
-
+  const fillColor = score>=0.9?'#ff3355':score>=0.7?'#ffaa00':'#00aaff';
   document.getElementById('drawer-content').innerHTML = `
     <div class="drawer-field">
       <label>Severity / Score</label>
       <div class="val" style="color:${fillColor}">${(alert.severity||'').toUpperCase()} — ${score.toFixed(3)}</div>
-      <div class="drawer-score-bar">
-        <div class="drawer-score-fill" style="width:${(score*100).toFixed(0)}%;background:${fillColor}"></div>
-      </div>
+      <div class="drawer-score-bar"><div class="drawer-score-fill" style="width:${(score*100).toFixed(0)}%;background:${fillColor}"></div></div>
     </div>
-    <div class="drawer-field">
-      <label>Attack Type</label>
-      <div class="val">${(alert.attack_type||'unknown').replace(/_/g,' ')}</div>
-    </div>
-    <div class="drawer-field">
-      <label>Source IP</label>
-      <div class="val" style="color:var(--red)">${alert.source_ip}</div>
-    </div>
-    <div class="drawer-field">
-      <label>Destination IP</label>
-      <div class="val" style="color:var(--blue)">${alert.dest_ip}</div>
-    </div>
-    <div class="drawer-field">
-      <label>Timestamp</label>
-      <div class="val">${alert.timestamp}</div>
-    </div>
-    <div class="drawer-field">
-      <label>Explanation</label>
-      <div class="val">${alert.explanation || 'N/A'}</div>
-    </div>
-    ${mitre.technique_id ? `
-    <div class="drawer-field">
-      <label>MITRE ATT&CK</label>
-      <div class="val">
-        <span style="color:var(--amber)">${mitre.technique_id}</span> — ${mitre.technique_name||''}<br>
-        <span style="color:var(--text3);font-size:11px">Tactic: ${mitre.tactic||''}</span>
-      </div>
-    </div>` : ''}
-    <div class="drawer-field">
-      <label>Alert ID</label>
-      <div class="val" style="color:var(--text3);font-size:11px">${alert.id}</div>
-    </div>
+    <div class="drawer-field"><label>Attack Type</label><div class="val">${(alert.attack_type||'unknown').replace(/_/g,' ')}</div></div>
+    <div class="drawer-field"><label>Source</label><div class="val" style="color:var(--red)">${alert.source_ip || alert.attack_type || 'N/A'}</div></div>
+    <div class="drawer-field"><label>Destination</label><div class="val" style="color:var(--blue)">${alert.dest_ip || mitre.tactic || 'N/A'}</div></div>
+    <div class="drawer-field"><label>Timestamp</label><div class="val">${safeTime(alert.timestamp)}</div></div>
+    <div class="drawer-field"><label>Explanation</label><div class="val">${alert.explanation||'N/A'}</div></div>
+    ${mitre.technique_id?`
+    <div class="drawer-field"><label>MITRE ATT&CK</label><div class="val">
+      <span style="color:var(--amber)">${mitre.technique_id}</span> — ${mitre.technique_name||''}<br>
+      <span style="color:var(--text3);font-size:11px">Tactic: ${mitre.tactic||''}</span>
+    </div></div>`:''}
+    <div class="drawer-field"><label>Log Text</label><div class="val" style="font-size:11px;color:var(--text2)">${alert.log_text||'N/A'}</div></div>
+    <div class="drawer-field"><label>Alert ID</label><div class="val" style="color:var(--text3);font-size:11px">${alert.id}</div></div>
   `;
   document.getElementById('detail-drawer').classList.add('open');
 }
@@ -1513,28 +801,15 @@ function closeDrawer() {
   document.getElementById('detail-drawer').classList.remove('open');
 }
 
-// close drawer on outside click
 document.addEventListener('click', e => {
   const drawer = document.getElementById('detail-drawer');
-  if (drawer.classList.contains('open') &&
-      !drawer.contains(e.target) &&
-      !e.target.closest('.alert-item')) {
+  if (drawer.classList.contains('open') && !drawer.contains(e.target) && !e.target.closest('.alert-item'))
     closeDrawer();
-  }
 });
 
-// ──────────────────────────────────────────────
-//  BOOT
-// ──────────────────────────────────────────────
-// If socket fails to connect within 2s, load demo
-setTimeout(() => {
-  if (!state.connected && !state.alerts.length) loadDemoData();
-}, 2000);
-
-// resize graph on window resize
-window.addEventListener('resize', () => {
-  if (state.graphNodes.length) renderGraph();
-});
+window.addEventListener('resize', () => { if (state.graphNodes.length) renderGraph(); });
+// ✅ FIX 2: REMOVED the 2-second timeout that was calling loadDemoData()
+// The dashboard now only uses real data from your backend
 </script>
 </body>
 </html>

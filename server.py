@@ -241,6 +241,17 @@ def api_graph():
 def api_summary():
     return jsonify((_results or {}).get("summary", {}))
 
+@app.route("/api/ip/<ip>")
+def api_ip(ip):
+    matches = [a for a in _alerts 
+               if a.get("source_ip") == ip or a.get("dest_ip") == ip]
+    return jsonify({
+        "ip": ip,
+        "total_alerts": len(matches),
+        "max_threat_score": max((a["threat_score"] for a in matches), default=0),
+        "attack_types": list({a["attack_type"] for a in matches}),
+        "alerts": matches[:20]
+    })
 
 # ── WebSocket ─────────────────────────────────────────────────────────────────
 
