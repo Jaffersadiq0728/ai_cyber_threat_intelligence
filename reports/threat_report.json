@@ -1,0 +1,1929 @@
+{
+  "generated_at": "2026-04-27T14:50:07",
+  "model_metrics": {},
+  "summary": {
+    "total_alerts": 2000,
+    "critical": 0,
+    "high": 339,
+    "medium": 634,
+    "low": 1027,
+    "graph_nodes": 0,
+    "graph_edges": 0
+  },
+  "top_attackers": [],
+  "mitre_summary": {
+    "Discovery": {
+      "count": 988,
+      "techniques": [
+        "T1046"
+      ]
+    },
+    "Impact": {
+      "count": 669,
+      "techniques": [
+        "T1498",
+        "T1499.001",
+        "T1499"
+      ]
+    },
+    "Command and Control": {
+      "count": 78,
+      "techniques": [
+        "T1071"
+      ]
+    },
+    "Credential Access": {
+      "count": 205,
+      "techniques": [
+        "T1110.003",
+        "T1110"
+      ]
+    },
+    "Execution": {
+      "count": 30,
+      "techniques": [
+        "T1059.007"
+      ]
+    },
+    "Initial Access": {
+      "count": 15,
+      "techniques": [
+        "T1190"
+      ]
+    },
+    "Lateral Movement": {
+      "count": 15,
+      "techniques": [
+        "T1021"
+      ]
+    }
+  },
+  "alerts": [
+    {
+      "id": "da2d12f5",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.8069,
+      "severity": "high",
+      "anomaly_score": 0.901,
+      "nlp_similarity": 0.3686,
+      "timestamp": "",
+      "explanation": "Distributed flood from multiple sources. Bandwidth saturation pattern. (NLP confidence: Medium, similarity: 0.37)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto other short duration high packet rate syn scan reconnaissance"
+    },
+    {
+      "id": "0a469d7f",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.802,
+      "severity": "high",
+      "anomaly_score": 0.8723,
+      "nlp_similarity": 0.3686,
+      "timestamp": "",
+      "explanation": "Distributed flood from multiple sources. Bandwidth saturation pattern. (NLP confidence: Medium, similarity: 0.37)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto other short duration high packet rate syn scan reconnaissance"
+    },
+    {
+      "id": "f8b1f412",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.8005,
+      "severity": "high",
+      "anomaly_score": 0.8745,
+      "nlp_similarity": 0.3686,
+      "timestamp": "",
+      "explanation": "Distributed flood from multiple sources. Bandwidth saturation pattern. (NLP confidence: Medium, similarity: 0.37)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto other short duration high packet rate syn scan reconnaissance"
+    },
+    {
+      "id": "e80a72c4",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.794,
+      "severity": "high",
+      "anomaly_score": 0.8477,
+      "nlp_similarity": 0.3686,
+      "timestamp": "",
+      "explanation": "Distributed flood from multiple sources. Bandwidth saturation pattern. (NLP confidence: Medium, similarity: 0.37)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto udp short duration high packet rate syn scan reconnaissance"
+    },
+    {
+      "id": "1bb6b970",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "DoS Hulk",
+      "threat_score": 0.7933,
+      "severity": "high",
+      "anomaly_score": 0.8423,
+      "nlp_similarity": 0.4741,
+      "timestamp": "",
+      "explanation": "High-rate HTTP flood detected. Abnormal packet volume and speed. (NLP confidence: Medium, similarity: 0.47)",
+      "mitre": {
+        "technique_id": "T1499",
+        "technique_name": "Endpoint Denial of Service",
+        "tactic": "Impact"
+      },
+      "log_text": "proto other high volume fwd packets flood high bytes per second high packet rate syn flood flag"
+    },
+    {
+      "id": "4c73012e",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.7921,
+      "severity": "high",
+      "anomaly_score": 0.8487,
+      "nlp_similarity": 0.3686,
+      "timestamp": "",
+      "explanation": "Distributed flood from multiple sources. Bandwidth saturation pattern. (NLP confidence: Medium, similarity: 0.37)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto udp short duration high packet rate syn scan reconnaissance"
+    },
+    {
+      "id": "67246781",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "DoS Slowhttptest",
+      "threat_score": 0.7907,
+      "severity": "high",
+      "anomaly_score": 1.0,
+      "nlp_similarity": 0.4654,
+      "timestamp": "",
+      "explanation": "High-rate HTTP flood detected. Abnormal packet volume and speed. (NLP confidence: Medium, similarity: 0.47)",
+      "mitre": {
+        "technique_id": "T1499.001",
+        "technique_name": "OS Exhaustion Flood",
+        "tactic": "Impact"
+      },
+      "log_text": "proto tcp high volume fwd packets flood high bytes per second high packet rate syn flood flag"
+    },
+    {
+      "id": "f298e994",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "DDoS",
+      "threat_score": 0.7875,
+      "severity": "high",
+      "anomaly_score": 0.8872,
+      "nlp_similarity": 0.4741,
+      "timestamp": "",
+      "explanation": "High-rate HTTP flood detected. Abnormal packet volume and speed. (NLP confidence: Medium, similarity: 0.47)",
+      "mitre": {
+        "technique_id": "T1498",
+        "technique_name": "Network Denial of Service",
+        "tactic": "Impact"
+      },
+      "log_text": "proto udp high volume fwd packets flood high bytes per second high packet rate syn flood flag"
+    },
+    {
+      "id": "434c0d94",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.786,
+      "severity": "high",
+      "anomaly_score": 0.8652,
+      "nlp_similarity": 0.355,
+      "timestamp": "",
+      "explanation": "Distributed flood from multiple sources. Bandwidth saturation pattern. (NLP confidence: Medium, similarity: 0.35)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto tcp short duration high packet rate syn scan reconnaissance"
+    },
+    {
+      "id": "bb74097a",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.7854,
+      "severity": "high",
+      "anomaly_score": 0.828,
+      "nlp_similarity": 0.3686,
+      "timestamp": "",
+      "explanation": "Distributed flood from multiple sources. Bandwidth saturation pattern. (NLP confidence: Medium, similarity: 0.37)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto other short duration high packet rate syn scan reconnaissance"
+    },
+    {
+      "id": "b443e1c4",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.7798,
+      "severity": "high",
+      "anomaly_score": 0.8109,
+      "nlp_similarity": 0.3686,
+      "timestamp": "",
+      "explanation": "Distributed flood from multiple sources. Bandwidth saturation pattern. (NLP confidence: Medium, similarity: 0.37)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto udp short duration high packet rate syn scan reconnaissance"
+    },
+    {
+      "id": "8ef1b369",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "DDoS",
+      "threat_score": 0.7797,
+      "severity": "high",
+      "anomaly_score": 0.8925,
+      "nlp_similarity": 0.4741,
+      "timestamp": "",
+      "explanation": "High-rate HTTP flood detected. Abnormal packet volume and speed. (NLP confidence: Medium, similarity: 0.47)",
+      "mitre": {
+        "technique_id": "T1498",
+        "technique_name": "Network Denial of Service",
+        "tactic": "Impact"
+      },
+      "log_text": "proto udp high volume fwd packets flood high bytes per second high packet rate syn flood flag"
+    },
+    {
+      "id": "8f9572e2",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.7751,
+      "severity": "high",
+      "anomaly_score": 0.8182,
+      "nlp_similarity": 0.355,
+      "timestamp": "",
+      "explanation": "Distributed flood from multiple sources. Bandwidth saturation pattern. (NLP confidence: Medium, similarity: 0.35)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto tcp short duration high packet rate syn scan reconnaissance"
+    },
+    {
+      "id": "b4d25503",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "DoS Hulk",
+      "threat_score": 0.7745,
+      "severity": "high",
+      "anomaly_score": 0.9537,
+      "nlp_similarity": 0.4211,
+      "timestamp": "",
+      "explanation": "High-rate HTTP flood detected. Abnormal packet volume and speed. (NLP confidence: Medium, similarity: 0.42)",
+      "mitre": {
+        "technique_id": "T1499",
+        "technique_name": "Endpoint Denial of Service",
+        "tactic": "Impact"
+      },
+      "log_text": "proto tcp high volume fwd packets flood high bytes per second high packet rate syn flood flag syn scan reconnaissance"
+    },
+    {
+      "id": "a83cf78e",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.7744,
+      "severity": "high",
+      "anomaly_score": 0.7941,
+      "nlp_similarity": 0.3686,
+      "timestamp": "",
+      "explanation": "Distributed flood from multiple sources. Bandwidth saturation pattern. (NLP confidence: Medium, similarity: 0.37)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto udp short duration high packet rate syn scan reconnaissance"
+    },
+    {
+      "id": "71fdc06e",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.7727,
+      "severity": "high",
+      "anomaly_score": 0.7823,
+      "nlp_similarity": 0.3686,
+      "timestamp": "",
+      "explanation": "Distributed flood from multiple sources. Bandwidth saturation pattern. (NLP confidence: Medium, similarity: 0.37)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto other short duration high packet rate syn scan reconnaissance"
+    },
+    {
+      "id": "c89b82bf",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.7704,
+      "severity": "high",
+      "anomaly_score": 0.7816,
+      "nlp_similarity": 0.3686,
+      "timestamp": "",
+      "explanation": "Distributed flood from multiple sources. Bandwidth saturation pattern. (NLP confidence: Medium, similarity: 0.37)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto other short duration high packet rate syn scan reconnaissance"
+    },
+    {
+      "id": "1d05cdca",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.7682,
+      "severity": "high",
+      "anomaly_score": 0.775,
+      "nlp_similarity": 0.3686,
+      "timestamp": "",
+      "explanation": "Distributed flood from multiple sources. Bandwidth saturation pattern. (NLP confidence: Medium, similarity: 0.37)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto udp short duration high packet rate syn scan reconnaissance"
+    },
+    {
+      "id": "cf3a4b8f",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.7678,
+      "severity": "high",
+      "anomaly_score": 0.7959,
+      "nlp_similarity": 0.355,
+      "timestamp": "",
+      "explanation": "Distributed flood from multiple sources. Bandwidth saturation pattern. (NLP confidence: Medium, similarity: 0.35)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto tcp short duration high packet rate syn scan reconnaissance"
+    },
+    {
+      "id": "848158ae",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.7674,
+      "severity": "high",
+      "anomaly_score": 0.7659,
+      "nlp_similarity": 0.3686,
+      "timestamp": "",
+      "explanation": "Distributed flood from multiple sources. Bandwidth saturation pattern. (NLP confidence: Medium, similarity: 0.37)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto udp short duration high packet rate syn scan reconnaissance"
+    },
+    {
+      "id": "1646f709",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.7669,
+      "severity": "high",
+      "anomaly_score": 0.771,
+      "nlp_similarity": 0.3686,
+      "timestamp": "",
+      "explanation": "Distributed flood from multiple sources. Bandwidth saturation pattern. (NLP confidence: Medium, similarity: 0.37)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto udp short duration high packet rate syn scan reconnaissance"
+    },
+    {
+      "id": "31e74437",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.7658,
+      "severity": "high",
+      "anomaly_score": 0.783,
+      "nlp_similarity": 0.355,
+      "timestamp": "",
+      "explanation": "Distributed flood from multiple sources. Bandwidth saturation pattern. (NLP confidence: Medium, similarity: 0.35)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto tcp short duration high packet rate syn scan reconnaissance"
+    },
+    {
+      "id": "0c66a3c5",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.7648,
+      "severity": "high",
+      "anomaly_score": 0.7864,
+      "nlp_similarity": 0.355,
+      "timestamp": "",
+      "explanation": "Distributed flood from multiple sources. Bandwidth saturation pattern. (NLP confidence: Medium, similarity: 0.35)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto tcp short duration high packet rate syn scan reconnaissance"
+    },
+    {
+      "id": "4a7d5240",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.7625,
+      "severity": "high",
+      "anomaly_score": 0.7507,
+      "nlp_similarity": 0.3686,
+      "timestamp": "",
+      "explanation": "Distributed flood from multiple sources. Bandwidth saturation pattern. (NLP confidence: Medium, similarity: 0.37)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto udp short duration high packet rate syn scan reconnaissance"
+    },
+    {
+      "id": "8af3ff77",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.7619,
+      "severity": "high",
+      "anomaly_score": 0.771,
+      "nlp_similarity": 0.355,
+      "timestamp": "",
+      "explanation": "Distributed flood from multiple sources. Bandwidth saturation pattern. (NLP confidence: Medium, similarity: 0.35)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto tcp short duration high packet rate syn scan reconnaissance"
+    },
+    {
+      "id": "aea39fc9",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.7605,
+      "severity": "high",
+      "anomaly_score": 0.7445,
+      "nlp_similarity": 0.3686,
+      "timestamp": "",
+      "explanation": "Distributed flood from multiple sources. Bandwidth saturation pattern. (NLP confidence: Medium, similarity: 0.37)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto udp short duration high packet rate syn scan reconnaissance"
+    },
+    {
+      "id": "07900413",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.7604,
+      "severity": "high",
+      "anomaly_score": 0.7577,
+      "nlp_similarity": 0.3686,
+      "timestamp": "",
+      "explanation": "Distributed flood from multiple sources. Bandwidth saturation pattern. (NLP confidence: Medium, similarity: 0.37)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto other short duration high packet rate syn scan reconnaissance"
+    },
+    {
+      "id": "86e5a5fd",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.76,
+      "severity": "high",
+      "anomaly_score": 0.7432,
+      "nlp_similarity": 0.3686,
+      "timestamp": "",
+      "explanation": "Distributed flood from multiple sources. Bandwidth saturation pattern. (NLP confidence: Medium, similarity: 0.37)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto udp short duration high packet rate syn scan reconnaissance"
+    },
+    {
+      "id": "b97b1e57",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.7596,
+      "severity": "high",
+      "anomaly_score": 0.7008,
+      "nlp_similarity": 0.394,
+      "timestamp": "",
+      "explanation": "Sequential port sweep detected. Low duration flows across many ports. (NLP confidence: Medium, similarity: 0.39)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto other short duration syn scan reconnaissance"
+    },
+    {
+      "id": "9c5b4914",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.7588,
+      "severity": "high",
+      "anomaly_score": 0.7662,
+      "nlp_similarity": 0.3686,
+      "timestamp": "",
+      "explanation": "Distributed flood from multiple sources. Bandwidth saturation pattern. (NLP confidence: Medium, similarity: 0.37)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto other short duration high packet rate syn scan reconnaissance"
+    },
+    {
+      "id": "a74bb229",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.7581,
+      "severity": "high",
+      "anomaly_score": 0.786,
+      "nlp_similarity": 0.355,
+      "timestamp": "",
+      "explanation": "Distributed flood from multiple sources. Bandwidth saturation pattern. (NLP confidence: Medium, similarity: 0.35)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto tcp short duration high packet rate syn scan reconnaissance"
+    },
+    {
+      "id": "2a2d761c",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.7566,
+      "severity": "high",
+      "anomaly_score": 0.7612,
+      "nlp_similarity": 0.355,
+      "timestamp": "",
+      "explanation": "Distributed flood from multiple sources. Bandwidth saturation pattern. (NLP confidence: Medium, similarity: 0.35)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto tcp short duration high packet rate syn scan reconnaissance"
+    },
+    {
+      "id": "dc1ed171",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.7563,
+      "severity": "high",
+      "anomaly_score": 0.7452,
+      "nlp_similarity": 0.3686,
+      "timestamp": "",
+      "explanation": "Distributed flood from multiple sources. Bandwidth saturation pattern. (NLP confidence: Medium, similarity: 0.37)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto other short duration high packet rate syn scan reconnaissance"
+    },
+    {
+      "id": "07d95356",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.7551,
+      "severity": "high",
+      "anomaly_score": 0.7281,
+      "nlp_similarity": 0.3686,
+      "timestamp": "",
+      "explanation": "Distributed flood from multiple sources. Bandwidth saturation pattern. (NLP confidence: Medium, similarity: 0.37)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto udp short duration high packet rate syn scan reconnaissance"
+    },
+    {
+      "id": "2a560641",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.7544,
+      "severity": "high",
+      "anomaly_score": 0.7325,
+      "nlp_similarity": 0.3686,
+      "timestamp": "",
+      "explanation": "Distributed flood from multiple sources. Bandwidth saturation pattern. (NLP confidence: Medium, similarity: 0.37)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto udp short duration high packet rate syn scan reconnaissance"
+    },
+    {
+      "id": "f63db662",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.7537,
+      "severity": "high",
+      "anomaly_score": 0.7589,
+      "nlp_similarity": 0.355,
+      "timestamp": "",
+      "explanation": "Distributed flood from multiple sources. Bandwidth saturation pattern. (NLP confidence: Medium, similarity: 0.35)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto tcp short duration high packet rate syn scan reconnaissance"
+    },
+    {
+      "id": "7af07376",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.7529,
+      "severity": "high",
+      "anomaly_score": 0.7803,
+      "nlp_similarity": 0.394,
+      "timestamp": "",
+      "explanation": "Sequential port sweep detected. Low duration flows across many ports. (NLP confidence: Medium, similarity: 0.39)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto other short duration syn scan reconnaissance"
+    },
+    {
+      "id": "8912fad2",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.7525,
+      "severity": "high",
+      "anomaly_score": 0.7336,
+      "nlp_similarity": 0.3686,
+      "timestamp": "",
+      "explanation": "Distributed flood from multiple sources. Bandwidth saturation pattern. (NLP confidence: Medium, similarity: 0.37)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto other short duration high packet rate syn scan reconnaissance"
+    },
+    {
+      "id": "c4afb58f",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.7522,
+      "severity": "high",
+      "anomaly_score": 0.7192,
+      "nlp_similarity": 0.3686,
+      "timestamp": "",
+      "explanation": "Distributed flood from multiple sources. Bandwidth saturation pattern. (NLP confidence: Medium, similarity: 0.37)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto udp short duration high packet rate syn scan reconnaissance"
+    },
+    {
+      "id": "c1a1f56e",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.7521,
+      "severity": "high",
+      "anomaly_score": 0.7476,
+      "nlp_similarity": 0.355,
+      "timestamp": "",
+      "explanation": "Distributed flood from multiple sources. Bandwidth saturation pattern. (NLP confidence: Medium, similarity: 0.35)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto tcp short duration high packet rate syn scan reconnaissance"
+    },
+    {
+      "id": "7145c79d",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.7518,
+      "severity": "high",
+      "anomaly_score": 0.718,
+      "nlp_similarity": 0.3686,
+      "timestamp": "",
+      "explanation": "Distributed flood from multiple sources. Bandwidth saturation pattern. (NLP confidence: Medium, similarity: 0.37)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto udp short duration high packet rate syn scan reconnaissance"
+    },
+    {
+      "id": "ea94b00a",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "DDoS",
+      "threat_score": 0.7518,
+      "severity": "high",
+      "anomaly_score": 0.7422,
+      "nlp_similarity": 0.5182,
+      "timestamp": "",
+      "explanation": "High-rate HTTP flood detected. Abnormal packet volume and speed. (NLP confidence: Medium, similarity: 0.52)",
+      "mitre": {
+        "technique_id": "T1498",
+        "technique_name": "Network Denial of Service",
+        "tactic": "Impact"
+      },
+      "log_text": "proto udp high volume fwd packets flood high bytes per second syn flood flag"
+    },
+    {
+      "id": "1aa08cad",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "DDoS",
+      "threat_score": 0.7513,
+      "severity": "high",
+      "anomaly_score": 0.7487,
+      "nlp_similarity": 0.4741,
+      "timestamp": "",
+      "explanation": "High-rate HTTP flood detected. Abnormal packet volume and speed. (NLP confidence: Medium, similarity: 0.47)",
+      "mitre": {
+        "technique_id": "T1498",
+        "technique_name": "Network Denial of Service",
+        "tactic": "Impact"
+      },
+      "log_text": "proto other high volume fwd packets flood high bytes per second high packet rate syn flood flag"
+    },
+    {
+      "id": "e8dd48f1",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.7512,
+      "severity": "high",
+      "anomaly_score": 0.7226,
+      "nlp_similarity": 0.3686,
+      "timestamp": "",
+      "explanation": "Distributed flood from multiple sources. Bandwidth saturation pattern. (NLP confidence: Medium, similarity: 0.37)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto other short duration high packet rate syn scan reconnaissance"
+    },
+    {
+      "id": "a98785d3",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "DoS Hulk",
+      "threat_score": 0.7511,
+      "severity": "high",
+      "anomaly_score": 0.797,
+      "nlp_similarity": 0.4741,
+      "timestamp": "",
+      "explanation": "High-rate HTTP flood detected. Abnormal packet volume and speed. (NLP confidence: Medium, similarity: 0.47)",
+      "mitre": {
+        "technique_id": "T1499",
+        "technique_name": "Endpoint Denial of Service",
+        "tactic": "Impact"
+      },
+      "log_text": "proto udp high volume fwd packets flood high bytes per second high packet rate syn flood flag"
+    },
+    {
+      "id": "46429e0d",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.751,
+      "severity": "high",
+      "anomaly_score": 0.7223,
+      "nlp_similarity": 0.3686,
+      "timestamp": "",
+      "explanation": "Distributed flood from multiple sources. Bandwidth saturation pattern. (NLP confidence: Medium, similarity: 0.37)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto other short duration high packet rate syn scan reconnaissance"
+    },
+    {
+      "id": "a0886227",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "DDoS",
+      "threat_score": 0.7507,
+      "severity": "high",
+      "anomaly_score": 0.8232,
+      "nlp_similarity": 0.4741,
+      "timestamp": "",
+      "explanation": "High-rate HTTP flood detected. Abnormal packet volume and speed. (NLP confidence: Medium, similarity: 0.47)",
+      "mitre": {
+        "technique_id": "T1498",
+        "technique_name": "Network Denial of Service",
+        "tactic": "Impact"
+      },
+      "log_text": "proto udp high volume fwd packets flood high bytes per second high packet rate syn flood flag"
+    },
+    {
+      "id": "5cf21efa",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.7503,
+      "severity": "high",
+      "anomaly_score": 0.7133,
+      "nlp_similarity": 0.3686,
+      "timestamp": "",
+      "explanation": "Distributed flood from multiple sources. Bandwidth saturation pattern. (NLP confidence: Medium, similarity: 0.37)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto udp short duration high packet rate syn scan reconnaissance"
+    },
+    {
+      "id": "0419aee5",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "DoS slowloris",
+      "threat_score": 0.75,
+      "severity": "high",
+      "anomaly_score": 0.8026,
+      "nlp_similarity": 0.5064,
+      "timestamp": "",
+      "explanation": "High-rate HTTP flood detected. Abnormal packet volume and speed. (NLP confidence: Medium, similarity: 0.51)",
+      "mitre": {
+        "technique_id": "T1499.001",
+        "technique_name": "OS Exhaustion Flood",
+        "tactic": "Impact"
+      },
+      "log_text": "proto tcp high volume fwd packets flood high bytes per second syn flood flag"
+    },
+    {
+      "id": "b5a838a3",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.7495,
+      "severity": "high",
+      "anomaly_score": 0.7176,
+      "nlp_similarity": 0.3686,
+      "timestamp": "",
+      "explanation": "Distributed flood from multiple sources. Bandwidth saturation pattern. (NLP confidence: Medium, similarity: 0.37)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto other short duration high packet rate syn scan reconnaissance"
+    },
+    {
+      "id": "aa9a2e8f",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "DoS Slowhttptest",
+      "threat_score": 0.7492,
+      "severity": "high",
+      "anomaly_score": 0.8348,
+      "nlp_similarity": 0.4741,
+      "timestamp": "",
+      "explanation": "High-rate HTTP flood detected. Abnormal packet volume and speed. (NLP confidence: Medium, similarity: 0.47)",
+      "mitre": {
+        "technique_id": "T1499.001",
+        "technique_name": "OS Exhaustion Flood",
+        "tactic": "Impact"
+      },
+      "log_text": "proto other high volume fwd packets flood high bytes per second high packet rate syn flood flag"
+    },
+    {
+      "id": "b76d9be1",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "DoS Hulk",
+      "threat_score": 0.7467,
+      "severity": "high",
+      "anomaly_score": 0.7972,
+      "nlp_similarity": 0.4741,
+      "timestamp": "",
+      "explanation": "High-rate HTTP flood detected. Abnormal packet volume and speed. (NLP confidence: Medium, similarity: 0.47)",
+      "mitre": {
+        "technique_id": "T1499",
+        "technique_name": "Endpoint Denial of Service",
+        "tactic": "Impact"
+      },
+      "log_text": "proto udp high volume fwd packets flood high bytes per second high packet rate syn flood flag"
+    },
+    {
+      "id": "849bff33",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.7459,
+      "severity": "high",
+      "anomaly_score": 0.6998,
+      "nlp_similarity": 0.3686,
+      "timestamp": "",
+      "explanation": "Distributed flood from multiple sources. Bandwidth saturation pattern. (NLP confidence: Medium, similarity: 0.37)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto udp short duration high packet rate syn scan reconnaissance"
+    },
+    {
+      "id": "23cb72bc",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "DDoS",
+      "threat_score": 0.7444,
+      "severity": "high",
+      "anomaly_score": 0.7987,
+      "nlp_similarity": 0.4741,
+      "timestamp": "",
+      "explanation": "High-rate HTTP flood detected. Abnormal packet volume and speed. (NLP confidence: Medium, similarity: 0.47)",
+      "mitre": {
+        "technique_id": "T1498",
+        "technique_name": "Network Denial of Service",
+        "tactic": "Impact"
+      },
+      "log_text": "proto udp high volume fwd packets flood high bytes per second high packet rate syn flood flag"
+    },
+    {
+      "id": "b10e503f",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.7443,
+      "severity": "high",
+      "anomaly_score": 0.7234,
+      "nlp_similarity": 0.355,
+      "timestamp": "",
+      "explanation": "Distributed flood from multiple sources. Bandwidth saturation pattern. (NLP confidence: Medium, similarity: 0.35)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto tcp short duration high packet rate syn scan reconnaissance"
+    },
+    {
+      "id": "f8f9328c",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "DoS Slowhttptest",
+      "threat_score": 0.7442,
+      "severity": "high",
+      "anomaly_score": 0.8391,
+      "nlp_similarity": 0.4741,
+      "timestamp": "",
+      "explanation": "High-rate HTTP flood detected. Abnormal packet volume and speed. (NLP confidence: Medium, similarity: 0.47)",
+      "mitre": {
+        "technique_id": "T1499.001",
+        "technique_name": "OS Exhaustion Flood",
+        "tactic": "Impact"
+      },
+      "log_text": "proto udp high volume fwd packets flood high bytes per second high packet rate syn flood flag"
+    },
+    {
+      "id": "fcd598e2",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.7434,
+      "severity": "high",
+      "anomaly_score": 0.714,
+      "nlp_similarity": 0.355,
+      "timestamp": "",
+      "explanation": "Distributed flood from multiple sources. Bandwidth saturation pattern. (NLP confidence: Medium, similarity: 0.35)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto tcp short duration high packet rate syn scan reconnaissance"
+    },
+    {
+      "id": "9e39782f",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.7429,
+      "severity": "high",
+      "anomaly_score": 0.7123,
+      "nlp_similarity": 0.355,
+      "timestamp": "",
+      "explanation": "Distributed flood from multiple sources. Bandwidth saturation pattern. (NLP confidence: Medium, similarity: 0.35)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto tcp short duration high packet rate syn scan reconnaissance"
+    },
+    {
+      "id": "90bf2e4c",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.7427,
+      "severity": "high",
+      "anomaly_score": 0.6897,
+      "nlp_similarity": 0.3686,
+      "timestamp": "",
+      "explanation": "Distributed flood from multiple sources. Bandwidth saturation pattern. (NLP confidence: Medium, similarity: 0.37)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto other short duration high packet rate syn scan reconnaissance"
+    },
+    {
+      "id": "58276f86",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.7418,
+      "severity": "high",
+      "anomaly_score": 0.7157,
+      "nlp_similarity": 0.355,
+      "timestamp": "",
+      "explanation": "Distributed flood from multiple sources. Bandwidth saturation pattern. (NLP confidence: Medium, similarity: 0.35)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto tcp short duration high packet rate syn scan reconnaissance"
+    },
+    {
+      "id": "e03aff4c",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.7418,
+      "severity": "high",
+      "anomaly_score": 0.6872,
+      "nlp_similarity": 0.3686,
+      "timestamp": "",
+      "explanation": "Distributed flood from multiple sources. Bandwidth saturation pattern. (NLP confidence: Medium, similarity: 0.37)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto udp short duration high packet rate syn scan reconnaissance"
+    },
+    {
+      "id": "2ea8265a",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "DDoS",
+      "threat_score": 0.7403,
+      "severity": "high",
+      "anomaly_score": 0.79,
+      "nlp_similarity": 0.4654,
+      "timestamp": "",
+      "explanation": "High-rate HTTP flood detected. Abnormal packet volume and speed. (NLP confidence: Medium, similarity: 0.47)",
+      "mitre": {
+        "technique_id": "T1498",
+        "technique_name": "Network Denial of Service",
+        "tactic": "Impact"
+      },
+      "log_text": "proto tcp high volume fwd packets flood high bytes per second high packet rate syn flood flag"
+    },
+    {
+      "id": "181c79d9",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.7401,
+      "severity": "high",
+      "anomaly_score": 0.6886,
+      "nlp_similarity": 0.3686,
+      "timestamp": "",
+      "explanation": "Distributed flood from multiple sources. Bandwidth saturation pattern. (NLP confidence: Medium, similarity: 0.37)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto udp short duration high packet rate syn scan reconnaissance"
+    },
+    {
+      "id": "f72d18be",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "DoS slowloris",
+      "threat_score": 0.7398,
+      "severity": "high",
+      "anomaly_score": 0.7618,
+      "nlp_similarity": 0.5187,
+      "timestamp": "",
+      "explanation": "High-rate HTTP flood detected. Abnormal packet volume and speed. (NLP confidence: Medium, similarity: 0.52)",
+      "mitre": {
+        "technique_id": "T1499.001",
+        "technique_name": "OS Exhaustion Flood",
+        "tactic": "Impact"
+      },
+      "log_text": "proto udp high volume fwd packets flood high bytes per second high packet rate"
+    },
+    {
+      "id": "5454b913",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.7398,
+      "severity": "high",
+      "anomaly_score": 0.703,
+      "nlp_similarity": 0.355,
+      "timestamp": "",
+      "explanation": "Distributed flood from multiple sources. Bandwidth saturation pattern. (NLP confidence: Medium, similarity: 0.35)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto tcp short duration high packet rate syn scan reconnaissance"
+    },
+    {
+      "id": "2500be70",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "DoS Hulk",
+      "threat_score": 0.7395,
+      "severity": "high",
+      "anomaly_score": 0.7687,
+      "nlp_similarity": 0.4741,
+      "timestamp": "",
+      "explanation": "High-rate HTTP flood detected. Abnormal packet volume and speed. (NLP confidence: Medium, similarity: 0.47)",
+      "mitre": {
+        "technique_id": "T1499",
+        "technique_name": "Endpoint Denial of Service",
+        "tactic": "Impact"
+      },
+      "log_text": "proto udp high volume fwd packets flood high bytes per second high packet rate syn flood flag"
+    },
+    {
+      "id": "90f6ee58",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.7379,
+      "severity": "high",
+      "anomaly_score": 0.6751,
+      "nlp_similarity": 0.3686,
+      "timestamp": "",
+      "explanation": "Distributed flood from multiple sources. Bandwidth saturation pattern. (NLP confidence: Medium, similarity: 0.37)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto udp short duration high packet rate syn scan reconnaissance"
+    },
+    {
+      "id": "cc3ff3fc",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.7364,
+      "severity": "high",
+      "anomaly_score": 0.6838,
+      "nlp_similarity": 0.3686,
+      "timestamp": "",
+      "explanation": "Distributed flood from multiple sources. Bandwidth saturation pattern. (NLP confidence: Medium, similarity: 0.37)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto other short duration high packet rate syn scan reconnaissance"
+    },
+    {
+      "id": "b061ea07",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "DoS Hulk",
+      "threat_score": 0.7363,
+      "severity": "high",
+      "anomaly_score": 0.7196,
+      "nlp_similarity": 0.4654,
+      "timestamp": "",
+      "explanation": "High-rate HTTP flood detected. Abnormal packet volume and speed. (NLP confidence: Medium, similarity: 0.47)",
+      "mitre": {
+        "technique_id": "T1499",
+        "technique_name": "Endpoint Denial of Service",
+        "tactic": "Impact"
+      },
+      "log_text": "proto tcp high volume fwd packets flood high bytes per second high packet rate syn flood flag"
+    },
+    {
+      "id": "c95671f7",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.7361,
+      "severity": "high",
+      "anomaly_score": 0.6916,
+      "nlp_similarity": 0.355,
+      "timestamp": "",
+      "explanation": "Distributed flood from multiple sources. Bandwidth saturation pattern. (NLP confidence: Medium, similarity: 0.35)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto tcp short duration high packet rate syn scan reconnaissance"
+    },
+    {
+      "id": "ae9275e0",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.7356,
+      "severity": "high",
+      "anomaly_score": 0.6749,
+      "nlp_similarity": 0.3686,
+      "timestamp": "",
+      "explanation": "Distributed flood from multiple sources. Bandwidth saturation pattern. (NLP confidence: Medium, similarity: 0.37)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto other short duration high packet rate syn scan reconnaissance"
+    },
+    {
+      "id": "87a2c2a4",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.7356,
+      "severity": "high",
+      "anomaly_score": 0.6679,
+      "nlp_similarity": 0.3686,
+      "timestamp": "",
+      "explanation": "Distributed flood from multiple sources. Bandwidth saturation pattern. (NLP confidence: Medium, similarity: 0.37)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto udp short duration high packet rate syn scan reconnaissance"
+    },
+    {
+      "id": "f231d961",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.7356,
+      "severity": "high",
+      "anomaly_score": 0.6746,
+      "nlp_similarity": 0.3686,
+      "timestamp": "",
+      "explanation": "Distributed flood from multiple sources. Bandwidth saturation pattern. (NLP confidence: Medium, similarity: 0.37)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto udp short duration high packet rate syn scan reconnaissance"
+    },
+    {
+      "id": "eeeb75f0",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.7356,
+      "severity": "high",
+      "anomaly_score": 0.668,
+      "nlp_similarity": 0.3686,
+      "timestamp": "",
+      "explanation": "Distributed flood from multiple sources. Bandwidth saturation pattern. (NLP confidence: Medium, similarity: 0.37)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto udp short duration high packet rate syn scan reconnaissance"
+    },
+    {
+      "id": "1f59a742",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.7355,
+      "severity": "high",
+      "anomaly_score": 0.6896,
+      "nlp_similarity": 0.355,
+      "timestamp": "",
+      "explanation": "Distributed flood from multiple sources. Bandwidth saturation pattern. (NLP confidence: Medium, similarity: 0.35)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto tcp short duration high packet rate syn scan reconnaissance"
+    },
+    {
+      "id": "96e1bc96",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "DDoS",
+      "threat_score": 0.7344,
+      "severity": "high",
+      "anomaly_score": 0.6955,
+      "nlp_similarity": 0.5081,
+      "timestamp": "",
+      "explanation": "High-rate HTTP flood detected. Abnormal packet volume and speed. (NLP confidence: Medium, similarity: 0.51)",
+      "mitre": {
+        "technique_id": "T1498",
+        "technique_name": "Network Denial of Service",
+        "tactic": "Impact"
+      },
+      "log_text": "proto tcp elevated fwd packets high bytes per second high packet rate syn flood flag"
+    },
+    {
+      "id": "046d7227",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.7337,
+      "severity": "high",
+      "anomaly_score": 0.7108,
+      "nlp_similarity": 0.355,
+      "timestamp": "",
+      "explanation": "Distributed flood from multiple sources. Bandwidth saturation pattern. (NLP confidence: Medium, similarity: 0.35)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto tcp short duration high packet rate syn scan reconnaissance"
+    },
+    {
+      "id": "c49023f0",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "DDoS",
+      "threat_score": 0.7334,
+      "severity": "high",
+      "anomaly_score": 0.7458,
+      "nlp_similarity": 0.4654,
+      "timestamp": "",
+      "explanation": "High-rate HTTP flood detected. Abnormal packet volume and speed. (NLP confidence: Medium, similarity: 0.47)",
+      "mitre": {
+        "technique_id": "T1498",
+        "technique_name": "Network Denial of Service",
+        "tactic": "Impact"
+      },
+      "log_text": "proto tcp high volume fwd packets flood high bytes per second high packet rate syn flood flag"
+    },
+    {
+      "id": "8392202a",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "DoS Hulk",
+      "threat_score": 0.733,
+      "severity": "high",
+      "anomaly_score": 0.7488,
+      "nlp_similarity": 0.4741,
+      "timestamp": "",
+      "explanation": "High-rate HTTP flood detected. Abnormal packet volume and speed. (NLP confidence: Medium, similarity: 0.47)",
+      "mitre": {
+        "technique_id": "T1499",
+        "technique_name": "Endpoint Denial of Service",
+        "tactic": "Impact"
+      },
+      "log_text": "proto other high volume fwd packets flood high bytes per second high packet rate syn flood flag"
+    },
+    {
+      "id": "df8f6ced",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "DoS Slowhttptest",
+      "threat_score": 0.7324,
+      "severity": "high",
+      "anomaly_score": 0.8278,
+      "nlp_similarity": 0.4741,
+      "timestamp": "",
+      "explanation": "High-rate HTTP flood detected. Abnormal packet volume and speed. (NLP confidence: Medium, similarity: 0.47)",
+      "mitre": {
+        "technique_id": "T1499.001",
+        "technique_name": "OS Exhaustion Flood",
+        "tactic": "Impact"
+      },
+      "log_text": "proto other high volume fwd packets flood high bytes per second high packet rate syn flood flag"
+    },
+    {
+      "id": "83774711",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.7322,
+      "severity": "high",
+      "anomaly_score": 0.6643,
+      "nlp_similarity": 0.3686,
+      "timestamp": "",
+      "explanation": "Distributed flood from multiple sources. Bandwidth saturation pattern. (NLP confidence: Medium, similarity: 0.37)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto udp short duration high packet rate syn scan reconnaissance"
+    },
+    {
+      "id": "42d17f04",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.7314,
+      "severity": "high",
+      "anomaly_score": 0.6551,
+      "nlp_similarity": 0.3686,
+      "timestamp": "",
+      "explanation": "Distributed flood from multiple sources. Bandwidth saturation pattern. (NLP confidence: Medium, similarity: 0.37)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto other short duration high packet rate syn scan reconnaissance"
+    },
+    {
+      "id": "d260fdbd",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.7299,
+      "severity": "high",
+      "anomaly_score": 0.6773,
+      "nlp_similarity": 0.3686,
+      "timestamp": "",
+      "explanation": "Distributed flood from multiple sources. Bandwidth saturation pattern. (NLP confidence: Medium, similarity: 0.37)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto udp short duration high packet rate syn scan reconnaissance"
+    },
+    {
+      "id": "a246c3ff",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.7299,
+      "severity": "high",
+      "anomaly_score": 0.6507,
+      "nlp_similarity": 0.3686,
+      "timestamp": "",
+      "explanation": "Distributed flood from multiple sources. Bandwidth saturation pattern. (NLP confidence: Medium, similarity: 0.37)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto other short duration high packet rate syn scan reconnaissance"
+    },
+    {
+      "id": "6a4256bb",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.7286,
+      "severity": "high",
+      "anomaly_score": 0.6753,
+      "nlp_similarity": 0.355,
+      "timestamp": "",
+      "explanation": "Distributed flood from multiple sources. Bandwidth saturation pattern. (NLP confidence: Medium, similarity: 0.35)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto tcp short duration high packet rate syn scan reconnaissance"
+    },
+    {
+      "id": "db3cc1f1",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.728,
+      "severity": "high",
+      "anomaly_score": 0.6448,
+      "nlp_similarity": 0.3686,
+      "timestamp": "",
+      "explanation": "Distributed flood from multiple sources. Bandwidth saturation pattern. (NLP confidence: Medium, similarity: 0.37)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto other short duration high packet rate syn scan reconnaissance"
+    },
+    {
+      "id": "c9ccc4c7",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.7278,
+      "severity": "high",
+      "anomaly_score": 0.6441,
+      "nlp_similarity": 0.3686,
+      "timestamp": "",
+      "explanation": "Distributed flood from multiple sources. Bandwidth saturation pattern. (NLP confidence: Medium, similarity: 0.37)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto other short duration high packet rate syn scan reconnaissance"
+    },
+    {
+      "id": "f4ac4b6c",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.7277,
+      "severity": "high",
+      "anomaly_score": 0.6503,
+      "nlp_similarity": 0.3686,
+      "timestamp": "",
+      "explanation": "Distributed flood from multiple sources. Bandwidth saturation pattern. (NLP confidence: Medium, similarity: 0.37)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto other short duration high packet rate syn scan reconnaissance"
+    },
+    {
+      "id": "fd3c7dea",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.7267,
+      "severity": "high",
+      "anomaly_score": 0.5993,
+      "nlp_similarity": 0.394,
+      "timestamp": "",
+      "explanation": "Sequential port sweep detected. Low duration flows across many ports. (NLP confidence: Medium, similarity: 0.39)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto udp short duration syn scan reconnaissance"
+    },
+    {
+      "id": "942b4204",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "DDoS",
+      "threat_score": 0.7258,
+      "severity": "high",
+      "anomaly_score": 0.7091,
+      "nlp_similarity": 0.4497,
+      "timestamp": "",
+      "explanation": "High-rate HTTP flood detected. Abnormal packet volume and speed. (NLP confidence: Medium, similarity: 0.45)",
+      "mitre": {
+        "technique_id": "T1498",
+        "technique_name": "Network Denial of Service",
+        "tactic": "Impact"
+      },
+      "log_text": "proto tcp elevated fwd packets high bytes per second high packet rate syn flood flag syn scan reconnaissance"
+    },
+    {
+      "id": "143528ab",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.7257,
+      "severity": "high",
+      "anomaly_score": 0.6442,
+      "nlp_similarity": 0.3686,
+      "timestamp": "",
+      "explanation": "Distributed flood from multiple sources. Bandwidth saturation pattern. (NLP confidence: Medium, similarity: 0.37)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto other short duration high packet rate syn scan reconnaissance"
+    },
+    {
+      "id": "0cfed1fa",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.7256,
+      "severity": "high",
+      "anomaly_score": 0.686,
+      "nlp_similarity": 0.355,
+      "timestamp": "",
+      "explanation": "Distributed flood from multiple sources. Bandwidth saturation pattern. (NLP confidence: Medium, similarity: 0.35)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto tcp short duration high packet rate syn scan reconnaissance"
+    },
+    {
+      "id": "896cf634",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.7252,
+      "severity": "high",
+      "anomaly_score": 0.6427,
+      "nlp_similarity": 0.3686,
+      "timestamp": "",
+      "explanation": "Distributed flood from multiple sources. Bandwidth saturation pattern. (NLP confidence: Medium, similarity: 0.37)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto other short duration high packet rate syn scan reconnaissance"
+    },
+    {
+      "id": "c7e3aa64",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "DoS Hulk",
+      "threat_score": 0.7252,
+      "severity": "high",
+      "anomaly_score": 0.7679,
+      "nlp_similarity": 0.4654,
+      "timestamp": "",
+      "explanation": "High-rate HTTP flood detected. Abnormal packet volume and speed. (NLP confidence: Medium, similarity: 0.47)",
+      "mitre": {
+        "technique_id": "T1499",
+        "technique_name": "Endpoint Denial of Service",
+        "tactic": "Impact"
+      },
+      "log_text": "proto tcp high volume fwd packets flood high bytes per second high packet rate syn flood flag"
+    },
+    {
+      "id": "8290d4f1",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.7239,
+      "severity": "high",
+      "anomaly_score": 0.6673,
+      "nlp_similarity": 0.355,
+      "timestamp": "",
+      "explanation": "Distributed flood from multiple sources. Bandwidth saturation pattern. (NLP confidence: Medium, similarity: 0.35)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto tcp short duration high packet rate syn scan reconnaissance"
+    },
+    {
+      "id": "8c67d6df",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "DoS Hulk",
+      "threat_score": 0.7233,
+      "severity": "high",
+      "anomaly_score": 0.6159,
+      "nlp_similarity": 0.52,
+      "timestamp": "",
+      "explanation": "High-rate HTTP flood detected. Abnormal packet volume and speed. (NLP confidence: Medium, similarity: 0.52)",
+      "mitre": {
+        "technique_id": "T1499",
+        "technique_name": "Endpoint Denial of Service",
+        "tactic": "Impact"
+      },
+      "log_text": "proto other elevated fwd packets high bytes per second high packet rate syn flood flag"
+    },
+    {
+      "id": "cae61658",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.7233,
+      "severity": "high",
+      "anomaly_score": 0.6302,
+      "nlp_similarity": 0.3686,
+      "timestamp": "",
+      "explanation": "Distributed flood from multiple sources. Bandwidth saturation pattern. (NLP confidence: Medium, similarity: 0.37)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto udp short duration high packet rate syn scan reconnaissance"
+    },
+    {
+      "id": "ef1809df",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.7219,
+      "severity": "high",
+      "anomaly_score": 0.6546,
+      "nlp_similarity": 0.355,
+      "timestamp": "",
+      "explanation": "Distributed flood from multiple sources. Bandwidth saturation pattern. (NLP confidence: Medium, similarity: 0.35)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto tcp short duration high packet rate syn scan reconnaissance"
+    },
+    {
+      "id": "300bb23a",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "PortScan",
+      "threat_score": 0.7209,
+      "severity": "high",
+      "anomaly_score": 0.6581,
+      "nlp_similarity": 0.355,
+      "timestamp": "",
+      "explanation": "Distributed flood from multiple sources. Bandwidth saturation pattern. (NLP confidence: Medium, similarity: 0.35)",
+      "mitre": {
+        "technique_id": "T1046",
+        "technique_name": "Network Service Scanning",
+        "tactic": "Discovery"
+      },
+      "log_text": "proto tcp short duration high packet rate syn scan reconnaissance"
+    },
+    {
+      "id": "25c0cbc7",
+      "source_ip": "",
+      "dest_ip": "",
+      "attack_type": "DoS Slowhttptest",
+      "threat_score": 0.7207,
+      "severity": "high",
+      "anomaly_score": 0.7004,
+      "nlp_similarity": 0.5187,
+      "timestamp": "",
+      "explanation": "High-rate HTTP flood detected. Abnormal packet volume and speed. (NLP confidence: Medium, similarity: 0.52)",
+      "mitre": {
+        "technique_id": "T1499.001",
+        "technique_name": "OS Exhaustion Flood",
+        "tactic": "Impact"
+      },
+      "log_text": "proto other high volume fwd packets flood high bytes per second high packet rate"
+    }
+  ],
+  "graph": {
+    "nodes": [],
+    "links": []
+  },
+  "anomaly_series": [
+    0.3524,
+    0.4682,
+    0.2989,
+    0.6932,
+    0.3451,
+    0.6777,
+    0.4862,
+    0.432,
+    0.5129,
+    0.5442,
+    0.4522,
+    0.5817,
+    0.4269,
+    0.613,
+    0.5791,
+    0.4791,
+    0.5372,
+    0.2406,
+    0.4711,
+    0.6998,
+    0.3579,
+    0.5285,
+    0.5692,
+    0.4163,
+    0.2792,
+    0.4139,
+    0.5322,
+    0.2863,
+    0.3465,
+    0.5757,
+    0.3857,
+    0.2788,
+    0.4873,
+    0.7698,
+    0.5094,
+    0.2693,
+    0.3777,
+    0.1032,
+    0.1397,
+    0.2981,
+    0.6773,
+    0.5857,
+    0.3849,
+    0.5046,
+    0.2397,
+    0.1536,
+    0.4647,
+    0.6751,
+    0.8148,
+    0.4442,
+    0.3744,
+    0.401,
+    0.6071,
+    0.5154,
+    0.5571,
+    0.4251,
+    0.3641,
+    0.8232,
+    0.4536,
+    0.5476
+  ]
+}
